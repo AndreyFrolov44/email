@@ -1,0 +1,9 @@
+.idea
+.pytest_cache
+.sqlite3
+.git
+__pycache__
+media
+versions
+venv
+.env
