@@ -4,7 +4,7 @@ from fastapi import HTTPException, status, APIRouter, Depends, BackgroundTasks
 from services.mailings import MailingService
 from services.lists import ListService
 from services.templates import TemplateService
-from models.mailings import Mailing, MailingCreate, MailingInfo
+from models.mailings import Mailing, MailingCreate, MailingInfo, MailingAll
 from models.users import User
 from .depends import get_mailing_service, get_current_user, get_list_service, get_template_service
 
@@ -12,7 +12,7 @@ from .depends import get_mailing_service, get_current_user, get_list_service, ge
 router = APIRouter(tags=['mailings'])
 
 
-@router.get('/', response_model=List[Mailing])
+@router.get('/', response_model=List[MailingAll])
 async def read_mailings(
     mailings: MailingService = Depends(get_mailing_service),
     current_user: User = Depends(get_current_user),

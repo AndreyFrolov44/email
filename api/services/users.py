@@ -36,7 +36,6 @@ class UserService(BaseService):
         values = {**create_user.dict()}
         values.pop("id", None)
         query = user.insert().values(**values, is_superuser=False)
-        print(query)
         create_user.id = await self.database.execute(query)
         return User(**create_user.dict())
 
@@ -60,7 +59,7 @@ class UserService(BaseService):
         u = await self.database.fetch_one(query)
         if u is None:
             return None
-        return u
+        return UserEmail.parse_obj(u)
 
     async def user_info(self, current_user: User):
         return current_user

@@ -35,22 +35,31 @@ class TemplateService(BaseService):
 
     async def get_by_id(self, user_id: int, id: int) -> TemplateGetById:
         query = template.join(user_template).select().where(user_template.c.user_id == user_id, user_template.c.template_id == id)
-        return await self.database.fetch_one(query=query)
+        t = await self.database.fetch_one(query=query)
+        if t is None:
+            return None
+        return TemplateGetById.parse_obj(t)
 
     async def get(self, id: int) -> Template:
         query = template.select().where(template.c.id == id)
-        return await self.database.fetch_one(query)
+        t = await self.database.fetch_one(query)
+        if t is None:
+            return None
+        return Template.parse_obj(t)
 
-    async def create(self, user: User, file: UploadFile, name: str, user_templates: UserTemplatesService) -> Template:
+    async def create(self, user: User, file: UploadFile, img: UploadFile, name: str, user_templates: UserTemplatesService) -> Template:
         file_name = f'media/user_templates/{user.id}_{name}_{uuid4()}.html'
-        if file.content_type == 'text/html':
+        img_name = f'media/templates_img/{uuid4()}_{img.filename.replace(" ", "-")}'
+        if file.content_type == 'text/html' and img.content_type == 'image/jpeg':
             await self._save_template(file=file, file_name=file_name)
+            await self._save_template(file=img, file_name=img_name)
         else:
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Не верный тип шаблона")
         create_template = TemplateCreate(
             name=name,
             user_template=True,
-            template=file_name
+            template=file_name,
+            img=img_name
         )
         values = {**create_template.dict()}
         values.pop("id", None)
@@ -59,6 +68,7 @@ class TemplateService(BaseService):
             create_template.user_template = False
         query = template.insert().values(**values)
         create_template.id = await self.database.execute(query)
+        create_template = TemplateCreate.parse_obj(create_template)
         if values['user_template']:
             await user_templates.create(user_id=user.id, template_id=create_template.id, templates=self)
         return create_template

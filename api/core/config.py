@@ -5,10 +5,12 @@ config = Config(".env")
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 ALGORITHM = "HS256"
 SECRET_KEY = config("SECRET_KEY", cast=str, default="2b2d197649061838c0c381612cb117d5f562ff181f2ed68c7847471af22f83ce")
-TESTING = config("TESTING", cast=bool, default=False)
-SMTP = config("SMTP", cast=str, default="smtp.gmail.com")
 
-if TESTING:
-    DATABASE_URL = 'sqlite:///./test.sqlite3'
-else:
-    DATABASE_URL = config("DATABASE_URL", cast=str, default="")
+POSTGRES_DB = config("POSTGRES_DB", cast=str, default="")
+POSTGRES_USER = config("POSTGRES_USER", cast=str, default="")
+POSTGRES_PASSWORD = config("POSTGRES_PASSWORD", cast=str, default="")
+POSTGRES_HOST = config("POSTGRES_HOST", cast=str, default="")
+
+SMTP = config("SMTP", cast=str, default="")
+EMAIL_ADDRESS = config("EMAIL_ADDRESS", cast=str, default="")
+EMAIL_PASSWORD = config("EMAIL_PASSWORD", cast=str, default="")

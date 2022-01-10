@@ -35,18 +35,23 @@ async def update_list(
 
 @router.delete('/')
 async def delete_list(
-    id: int,
-    lists: ListService = Depends(get_list_service),
+    id: str,
+    list: ListService = Depends(get_list_service),
     current_user: users.User = Depends(get_current_user)
 ):
-    list = await lists.get_by_id(id)
-    if list is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Данного списка не существует")
-    if list.user_id != current_user.id:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="У вас нет доступа к данному списку")
-    await lists.delete(list_id=id)
+    ids = id.split(',')
+    id = '(' + id + ')'
+    ls = await list.get_by_id_list(id)
+    if len(ls) == 0:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Списки не найдены")
+    for l in ls:
+        list_ob = lists.Lists.parse_obj(l)
+        if list_ob.user_id != current_user.id:
+            ids.remove(l.id)
+    ids = '(' + ','.join(ids) + ')'
+    await list.delete(list_id=ids)
 
-@router.get('/info/{list_id}', response_model=lists.ListInfo)
+@router.get('/info/{list_id}')
 async def list_info(
     list_id:int,
     lists: ListService = Depends(get_list_service),

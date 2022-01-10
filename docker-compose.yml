@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  db:
+    container_name: postgres-email
+    image: postgres:12
+    restart: on-failure
+    env_file:
+      - ./api/.env
+    ports:
+      - 5432:5432
+    volumes:
+      - ./.database/postgres/data:/var/lib/postgresql/data/
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
+  api:
+    container_name: email-api
+    build: ./api
+    env_file:
+      - ./api/.env
+    volumes:
+      - ./api:/api
+    ports:
+      - 8000:8000
+    restart: always
+    depends_on:
+      - db

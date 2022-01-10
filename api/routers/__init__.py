@@ -2,7 +2,7 @@ from fastapi import APIRouter
 
 from . import users, auth, lists, contacts, templates, tags, mailings
 
-router = APIRouter()
+router = APIRouter(prefix='/api')
 router.include_router(users.router, prefix='/users')
 router.include_router(auth.router, prefix='/auth')
 router.include_router(lists.router, prefix='/lists')

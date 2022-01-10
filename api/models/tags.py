@@ -9,9 +9,6 @@ class TagBase(BaseModel):
 class Tag(TagBase):
     id: Optional[int]
 
-    class Config:
-        orm_mode = True
-
 
 class TagIn(TagBase):
     pass

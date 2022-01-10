@@ -37,12 +37,13 @@ async def create_template(
     name: str,
     templates: TemplateService = Depends(get_template_service),
     file: UploadFile = File(...),
+    img: UploadFile = File(...),
     current_user: User = Depends(get_current_user),
     user_templates: UserTemplatesService = Depends(get_user_templates_service)
 ):
     if current_user is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Вы не авторизированы")
-    template = await templates.create(user=current_user, file=file, name=name, user_templates=user_templates)
+    template = await templates.create(user=current_user, file=file, img=img, name=name, user_templates=user_templates)
     return template
 
 @router.put('/', response_model=Template)

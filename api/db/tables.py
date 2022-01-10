@@ -77,7 +77,8 @@ template = Table(
     Column("id", Integer, primary_key=True, unique=True, autoincrement=True),
     Column("name", String, nullable=False),
     Column("user_template", Boolean, default=False),
-    Column("template", String(200), nullable=False)
+    Column("template", String(200), nullable=False),
+    Column("img", String(200), nullable=False)
 )
 
 # class Template(Base):
@@ -136,6 +137,8 @@ mailing = Table(
     "mailings",
     metadata,
     Column("id", Integer, primary_key=True, unique=True, autoincrement=True),
+    Column("title", String),
+    Column("organisation", String),
     Column("user_id", Integer, ForeignKey('users.id', ondelete="CASCADE"), index=True),
     Column("template_id", Integer, ForeignKey('templates.id'), index=True),
     Column("list_id", Integer, ForeignKey('lists.id'), index=True),

@@ -12,13 +12,14 @@ class TemplateCreate(TemplateBase):
     id: Optional[int]
     template: str
     user_template: bool
+    img: str
 
 
 class Template(TemplateCreate):
     tags: List[Tag] = []
 
 
-class TemplateGetById(BaseModel):
+class TemplateGetById(TemplateCreate):
     user_id: int
 
 
