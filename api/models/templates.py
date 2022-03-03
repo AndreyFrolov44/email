@@ -8,6 +8,10 @@ class TemplateBase(BaseModel):
     name: str
 
 
+class TemplateIn(TemplateBase):
+    html: str
+
+
 class TemplateCreate(TemplateBase):
     id: Optional[int]
     template: str
@@ -23,5 +27,5 @@ class TemplateGetById(TemplateCreate):
     user_id: int
 
 
-class TemplateIn(TemplateBase):
-    pass
+# class TemplateIn(TemplateBase):
+#     pass

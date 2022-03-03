@@ -1,7 +1,7 @@
 from typing import List
-from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
+from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Form
 
-from models.templates import Template
+from models.templates import Template, TemplateIn
 from models.users import User
 from .depends import get_template_service, get_current_user, get_user_templates_service, get_template_tag_service
 from services.templates import TemplateService
@@ -34,16 +34,18 @@ async def read_templates_user(
 
 @router.post('/', response_model=Template)
 async def create_template(
-    name: str,
-    templates: TemplateService = Depends(get_template_service),
-    file: UploadFile = File(...),
     img: UploadFile = File(...),
+    name: str = Form(...),
+    html: str = Form(...),
+    templates: TemplateService = Depends(get_template_service),
+    # file: UploadFile = File(...),
+
     current_user: User = Depends(get_current_user),
     user_templates: UserTemplatesService = Depends(get_user_templates_service)
 ):
     if current_user is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Вы не авторизированы")
-    template = await templates.create(user=current_user, file=file, img=img, name=name, user_templates=user_templates)
+    template = await templates.create(user=current_user, name=name, html=html, img=img, user_templates=user_templates)
     return template
 
 @router.put('/', response_model=Template)

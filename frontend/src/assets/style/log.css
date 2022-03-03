@@ -26,7 +26,7 @@ h2 {
 
 p {
   font-size: 16px!important;
-  line-height: 150.9%!important;
+  line-height: 150.9%; /* Возможно !important */
 }
 
 ul {
@@ -58,11 +58,20 @@ button {
   color: #000;
 }
 
+.button.left{
+  margin-right: auto;
+}
+
 .button-plus{
   padding: 1px 5px;
   height: 26px;
   border-radius: 4px;
   margin-right: 2px!important;
+}
+
+.buttons.left{
+  display: flex;
+  justify-content: end;
 }
 
 .table-plus{
@@ -88,6 +97,7 @@ input, textarea, select {
   border-radius: 3px;
   background-color: transparent;
   width: 240px;
+  max-width: 100%; /* Возвожно надо будет убрать */
   height: 33px;
   margin-top: 5px;
   margin-bottom: 10px;
@@ -632,6 +642,10 @@ input.error {
   background-color: #000;
   opacity: 0.5;
   z-index: 50;
+}
+
+.log-template-create{
+  margin-top: 50px;
 }
 
 @keyframes popup {

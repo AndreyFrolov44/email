@@ -3,12 +3,13 @@ import aiofiles
 from fastapi import UploadFile, HTTPException, status
 from typing import List
 from uuid import uuid4
+from bs4 import BeautifulSoup
 
 from db.tables import template, user_template
 from .base import BaseService
 from .user_templates import UserTemplatesService
 from .template_tags import TemplateTags
-from models.templates import Template, TemplateGetById, TemplateCreate
+from models.templates import Template, TemplateGetById, TemplateCreate, TemplateIn
 from models.users import User
 
 
@@ -47,16 +48,18 @@ class TemplateService(BaseService):
             return None
         return Template.parse_obj(t)
 
-    async def create(self, user: User, file: UploadFile, img: UploadFile, name: str, user_templates: UserTemplatesService) -> Template:
+    async def create(self, user: User, name: str, html: str, img: UploadFile, user_templates: UserTemplatesService) -> Template:
         file_name = f'media/user_templates/{user.id}_{name}_{uuid4()}.html'
         img_name = f'media/templates_img/{uuid4()}_{img.filename.replace(" ", "-")}'
-        if file.content_type == 'text/html' and img.content_type == 'image/jpeg':
-            await self._save_template(file=file, file_name=file_name)
-            await self._save_template(file=img, file_name=img_name)
-        else:
+        if not bool(BeautifulSoup(html, "html.parser").find()):
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Не верный тип шаблона")
+        if img.content_type == 'image/jpeg':
+            await self._save_image(file=img, file_name=img_name)
+        else:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Не верный тип изображения")
+        await self._save_html(html=html, file_name=file_name)
         create_template = TemplateCreate(
-            name=name,
+            name=template.name,
             user_template=True,
             template=file_name,
             img=img_name
@@ -122,7 +125,11 @@ class TemplateService(BaseService):
         query = user_template.delete().where(user_template.c.user_id == user.id, user_template.c.template_id == template_id)
         await self.database.execute(query)
 
-    async def _save_template(self, file: UploadFile, file_name: str):
+    async def _save_image(self, file: UploadFile, file_name: str):
         async with aiofiles.open(file_name, "wb") as buffer:
             data = await file.read()
             await buffer.write(data)
+
+    async def _save_html(self, html: str, file_name: str):
+        async with aiofiles.open(file_name, "wb") as buffer:
+            await buffer.write(html.encode('utf-8'))
