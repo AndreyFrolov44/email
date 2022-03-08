@@ -170,3 +170,11 @@ mailing = Table(
 #     template = relationship('Template', backref="mailings")
 #     list = relationship('List', backref="mailings")
 #
+
+user_image = Table(
+    "user_images",
+    metadata,
+    Column("id", Integer, primary_key=True, unique=True, autoincrement=True),
+    Column("user_id", Integer, ForeignKey('users.id', ondelete="CASCADE"), index=True),
+    Column("img", String(200), nullable=False)
+)

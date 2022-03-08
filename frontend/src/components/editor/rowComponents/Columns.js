@@ -5,6 +5,7 @@ import Button from "./Button";
 import Delimiter from "./Delimiter";
 import Header from "./Header";
 import Text from "./Text";
+import Image from "./Image";
 
 
 const Columns = (props) => {
@@ -166,6 +167,28 @@ const Columns = (props) => {
                     }]
             };
         }
+        else if (props.newElements === "image") {
+            rows[indexRow].content[indexColumn] = {
+                ...props.row.content[indexColumn],
+                elements: [
+                    ...props.row.content[indexColumn].elements,
+                    {
+                        element: props.newElements,
+                        src: 'https://images.ctfassets.net/hrltx12pl8hq/4f6DfV5DbqaQUSw0uo0mWi/6fbcf889bdef65c5b92ffee86b13fc44/shutterstock_376532611.jpg?fit=fill&w=800&h=300',
+                        imageId: null,
+                        alt: 'Альтернативный текст',
+                        style: {
+                            display: "inline-block",
+                            width: '100%',
+                            boxSizing: 'border-box'
+                        },
+                        columnElementStyle: {
+                            textAlign: 'left'
+                        },
+                        id: props.maxIdElement,
+                    }]
+            };
+        }
         rows[indexRow].style = { ...rows[indexRow].style, height: 'auto' }
         props.setMaxIdElement(props.maxIdElement + 1);
         props.setRows(rows);
@@ -186,6 +209,7 @@ const Columns = (props) => {
         else if (element.element === 'text') return <Text element={element} setRows={props.setRows} rows={props.rows} row={props.row} content={props.content} />
         else if (element.element === 'delimiter') return <Delimiter element={element} />
         else if (element.element === 'header') return <Header element={element} setRows={props.setRows} rows={props.rows} row={props.row} content={props.content} />
+        else if (element.element === 'image') return <Image element={element} />
     }
 
     useEffect(() => {

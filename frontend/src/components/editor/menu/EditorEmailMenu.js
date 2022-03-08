@@ -19,6 +19,7 @@ import EditorEmailMenuText from "./EditorEmailMenuText";
 import Menu from './Menu';
 import EditorEmailMenuDelimiter from "./EditorEmailMenuDelimiter";
 import EditorEmailMenuHeader from "./EditorEmailMenuHeader";
+import EditorEmailMenuImage from "./EditorEmailMenuImage";
 
 
 const EditorEmailMenu = (props) => {
@@ -30,6 +31,7 @@ const EditorEmailMenu = (props) => {
         else if (props.focusElement.element.element === 'text' && props.focusElement.element.id) return <EditorEmailMenuText rows={props.rows} setRows={props.setRows} focusElement={props.focusElement} setFocusElement={props.setFocusElement} />
         else if (props.focusElement.element.element === 'delimiter' && props.focusElement.element.id) return <EditorEmailMenuDelimiter rows={props.rows} setRows={props.setRows} focusElement={props.focusElement} setFocusElement={props.setFocusElement} />
         else if (props.focusElement.element.element === 'header' && props.focusElement.element.id) return <EditorEmailMenuHeader rows={props.rows} setRows={props.setRows} focusElement={props.focusElement} setFocusElement={props.setFocusElement} />
+        else if (props.focusElement.element.element === 'image' && props.focusElement.element.id) return <EditorEmailMenuImage rows={props.rows} setRows={props.setRows} focusElement={props.focusElement} setFocusElement={props.setFocusElement} />
     }
 
     return (
@@ -47,7 +49,7 @@ const EditorEmailMenu = (props) => {
             <div className={`editor-menu-tab ${!props.focusRow.id && !props.focusElement.element ? 'active' : ''}`}>
                 <EditorEmailMenuItem newElements={props.newElements} setNewElements={props.setNewElements} set={props.setNewColumns} elementName={'columns'} title={'Колонки'} svg={ColumnsSvg} />
                 <EditorEmailMenuItem newElements={props.newElements} setNewElements={props.setNewElements} set={props.setNewColumns} elementName={'button'} title={'Кнопка'} svg={ButtonSvg} />
-                <EditorEmailMenuItem newElements={props.newElements} setNewElements={props.setNewElements} set={props.setNewColumns} elementName={''} title={'Изображение'} svg={ImageSvg} />
+                <EditorEmailMenuItem newElements={props.newElements} setNewElements={props.setNewElements} set={props.setNewColumns} elementName={'image'} title={'Изображение'} svg={ImageSvg} />
                 <EditorEmailMenuItem newElements={props.newElements} setNewElements={props.setNewElements} set={props.setNewColumns} elementName={'menu'} title={'Меню'} svg={MenuSvg} />
                 <EditorEmailMenuItem newElements={props.newElements} setNewElements={props.setNewElements} set={props.setNewColumns} elementName={'text'} title={'Текст'} svg={TextSvg} />
                 <EditorEmailMenuItem newElements={props.newElements} setNewElements={props.setNewElements} set={props.setNewColumns} elementName={'delimiter'} title={'Разделитель'} svg={DelimiterSvg} />

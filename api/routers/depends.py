@@ -1,6 +1,6 @@
 from fastapi import Depends, HTTPException, status
 
-from services import users, lists, contacts, templates, user_templates, tags, template_tags, mailings
+from services import users, lists, contacts, templates, user_templates, tags, template_tags, mailings, user_images
 from db.base import database
 from core.security import JWTBearer, decode_access_token
 from models.users import UserInfo
@@ -36,6 +36,10 @@ def get_template_tag_service() -> template_tags.TemplateTags:
 
 def get_mailing_service() -> mailings.MailingService:
     return mailings.MailingService(database)
+
+
+def get_user_image_service() -> user_images.UserImagesService:
+    return user_images.UserImagesService(database)
 
 
 async def get_current_user(

@@ -11,6 +11,8 @@ POSTGRES_USER = config("POSTGRES_USER", cast=str, default="")
 POSTGRES_PASSWORD = config("POSTGRES_PASSWORD", cast=str, default="")
 POSTGRES_HOST = config("POSTGRES_HOST", cast=str, default="")
 
+HOST = config("HOST", cast=str, default="http://localhost:8000/")
+
 SMTP = config("SMTP", cast=str, default="")
 EMAIL_ADDRESS = config("EMAIL_ADDRESS", cast=str, default="")
 EMAIL_PASSWORD = config("EMAIL_PASSWORD", cast=str, default="")

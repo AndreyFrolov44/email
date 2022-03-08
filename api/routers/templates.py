@@ -1,7 +1,7 @@
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Form
 
-from models.templates import Template, TemplateIn
+from models.templates import Template
 from models.users import User
 from .depends import get_template_service, get_current_user, get_user_templates_service, get_template_tag_service
 from services.templates import TemplateService
