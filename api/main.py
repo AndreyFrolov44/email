@@ -1,10 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from sqlalchemy_utils import create_database, database_exists
 
-from db import init_db
-from db.base import database, metadata, engine
+from db.base import database, metadata, engine, SQLALCHEMY_DATABASE_URL
 from routers import router
+
+if not database_exists(SQLALCHEMY_DATABASE_URL):
+    create_database(SQLALCHEMY_DATABASE_URL)
 
 metadata.create_all(engine)
 
@@ -29,10 +32,11 @@ app.include_router(router)
 def root():
     return {"message": "hello"}
 
+
 @app.on_event("startup")
 async def startup():
-    # init_db()
     await database.connect()
+
 
 @app.on_event("shutdown")
 async def shutdown():

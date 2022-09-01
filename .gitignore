@@ -9,7 +9,7 @@ __pycache__
 media
 versions
 venv
-# .env
+.env
 
 # dependencies
 node_modules
