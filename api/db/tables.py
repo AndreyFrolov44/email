@@ -78,7 +78,8 @@ template = Table(
     Column("name", String, nullable=False),
     Column("user_template", Boolean, default=False),
     Column("template", String(200), nullable=False),
-    Column("img", String(200), nullable=False)
+    Column("img", String(200), nullable=False),
+    Column("rows", String, nullable=False)
 )
 
 # class Template(Base):
@@ -150,6 +151,19 @@ mailing = Table(
     Column("transition", Integer),
     Column("unfollow", Integer),
     Column("spam", Integer)
+)
+
+mailing_contact = Table(
+    "mailing_contacts",
+    metadata,
+    Column("id", Integer, primary_key=True, unique=True, autoincrement=True),
+    Column("mailing_id", Integer, ForeignKey('mailings.id', ondelete="CASCADE"), index=True),
+    Column("contact_id", Integer, ForeignKey('contacts.id', ondelete="CASCADE"), index=True),
+    Column("uuid", String, unique=True, index=True),
+    Column("read", Boolean, default=False),
+    Column("transition", Boolean, default=False),
+    Column("unfollow", Boolean, default=False),
+    Column("spam", Boolean, default=False)
 )
 
 # class Mailing(Base):

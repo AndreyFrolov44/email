@@ -9,6 +9,7 @@
     "axios": "^0.24.0",
     "dateformat": "^5.0.2",
     "html2canvas": "^1.4.0",
+    "jsx-to-string": "^1.4.0",
     "mobx": "^6.3.7",
     "mobx-react-lite": "^3.2.2",
     "react": "^17.0.2",

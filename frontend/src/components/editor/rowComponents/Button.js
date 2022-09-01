@@ -15,7 +15,7 @@ const Button = (props) => {
     }
 
     return (
-        <a className="component-button" contentEditable={true} suppressContentEditableWarning={true} style={props.element.style} onBlur={change}>{props.element.text}</a>
+        <a className="component-button" href={props.element.actionType === 'site' ? props.element.url : props.element.actionType === 'mail' ? `mailto:${props.element.toEmail}?subject=${props.element.subjectEmail}&body=${props.element.contentEmail}` : `tel:${props.element.phone}`} disabled={true} contentEditable={true} suppressContentEditableWarning={true} style={props.element.style} onBlur={change}>{props.element.text}</a>
     )
 }
 

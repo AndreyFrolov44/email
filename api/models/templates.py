@@ -17,6 +17,7 @@ class TemplateCreate(TemplateBase):
     template: str
     user_template: bool
     img: str
+    rows: str
 
 
 class Template(TemplateCreate):

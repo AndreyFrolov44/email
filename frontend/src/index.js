@@ -10,14 +10,8 @@ import ListsStore from './store/ListsStore';
 import TemplatesStore from './store/TemplatesStore';
 import MailingsStore from './store/MailingsStore';
 
-// configure({
-//     useProxies: "never"
-// })
-// UnlayerOptions.init({
-//   locale: 'en-US'
-// })
 
-const user = new UserStore();
+export const user = new UserStore();
 const contacts = new ContactsStore();
 const lists = new ListsStore();
 const templates = new TemplatesStore()

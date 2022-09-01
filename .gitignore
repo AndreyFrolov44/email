@@ -2,6 +2,9 @@
 .pytest_cache
 .sqlite3
 .git
+.database
+data
+test.html
 __pycache__
 media
 versions

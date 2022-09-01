@@ -16,8 +16,8 @@ const EditorEmailMenuTab = (props) => {
                 )}
             </div>
             {props.focusRow.content && props.focusRow.content.map((el, i) =>
-                <div className={`editor-menu-property ${tabActive === i ? 'active' : ''}`}>
-                    <props.item key={i} culumnIndex={i} focusRow={props.focusRow} currentRow={props.rows.indexOf(props.focusRow)} rows={props.rows} setRows={props.setRows} />
+                <div key={i} className={`editor-menu-property ${tabActive === i ? 'active' : ''}`}>
+                    <props.item columnIndex={i} focusRow={props.focusRow} currentRow={props.rows.indexOf(props.focusRow)} rows={props.rows} setRows={props.setRows} />
                 </div>
             )}
         </div>

@@ -12,6 +12,10 @@ import './assets/style/reset.css';
 const App = () => {
   const { user } = useContext(Context)
 
+  useEffect(() => {
+    console.log(user.isAuth, user)
+  }, [user])
+
   return (
     <>
       <BrowserRouter>

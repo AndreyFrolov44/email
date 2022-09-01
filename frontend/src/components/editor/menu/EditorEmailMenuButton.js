@@ -10,14 +10,16 @@ import BorderRadius from "../menuComponents/BorderRadius";
 import Margin from "../menuComponents/Margin";
 import Color from "../menuComponents/Color";
 import TextAlign from "../menuComponents/TextAlign";
+import FontSize from "../menuComponents/FontSize";
 
 const EditorEmailMenuButton = (props) => {
     const [button, setButton] = useState({
-        actionType: 'site',
-        url: '',
-        fromEmail: '',
-        toEmail: '',
-        contentEmail: '',
+        actionType: props.focusElement.element.actionType || 'site',
+        url: props.focusElement.element.url || '',
+        toEmail: props.focusElement.element.toEmail || '',
+        subjectEmail: props.focusElement.element.subjectEmail || '',
+        contentEmail: props.focusElement.element.contentEmail || '',
+        phone: props.focusElement.element.phone || '',
         textColor: props.focusElement.element.style.color ? {
             r: parseInt(props.focusElement.element.style.color.split(")")[0].slice(4).split(", ")[0]),
             g: parseInt(props.focusElement.element.style.color.split(")")[0].slice(5).split(", ")[1]),
@@ -25,13 +27,13 @@ const EditorEmailMenuButton = (props) => {
         } : { r: 255, g: 255, b: 255 },
         backgroundColor: props.focusElement.element.style.backgroundColor ? props.focusElement.element.style.backgroundColor : {},
         width: !isNaN(parseFloat(props.focusElement.element.style.width)) ? parseInt(props.focusElement.element.style.width) : 'auto',
-        textAlign: props.rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].columnElementStyle.textAlign,
+        textAlign: props.focusElement.element.columnElementStyle.textAlign || 'center',
         lineHeight: !isNaN(parseInt(props.focusElement.element.style.lineHeight)) ? parseInt(props.focusElement.element.style.lineHeight) : 100,
         padding: {
-            top: parseInt(props.focusElement.element.style.padding.split(" ")[0]) || 10,
-            right: parseInt(props.focusElement.element.style.padding.split(" ")[1]) || 20,
-            bottom: parseInt(props.focusElement.element.style.padding.split(" ")[2]) || 10,
-            left: parseInt(props.focusElement.element.style.padding.split(" ")[3]) || 20
+            top: props.focusElement.element.style.padding.split(" ")[0] ? parseInt(props.focusElement.element.style.padding.split(" ")[0]) : 10,
+            right: props.focusElement.element.style.padding.split(" ")[1] ? parseInt(props.focusElement.element.style.padding.split(" ")[1]) : 20,
+            bottom: props.focusElement.element.style.padding.split(" ")[2] ? parseInt(props.focusElement.element.style.padding.split(" ")[2]) : 10,
+            left: props.focusElement.element.style.padding.split(" ")[3] ? parseInt(props.focusElement.element.style.padding.split(" ")[3]) : 20
         },
         border: {
             top: props.focusElement.element.style.borderWidth ? parseInt(props.focusElement.element.style.borderWidth.split(" ")[0]) : 0,
@@ -84,14 +86,20 @@ const EditorEmailMenuButton = (props) => {
             right: 5,
             bottom: 5,
             left: 5
-        }
+        },
+        fontSize: props.focusElement.element.style.fontSize ? parseInt(props.focusElement.element.style.fontSize) : 15,
     });
     const [colorActive, setColorActive] = useState({ color: false, background: false });
     const [buttonWidth, setButtonWidth] = useState(props.focusElement.element.style.width === 'auto' ? false : true);
 
     useEffect(() => {
         const rows = [...props.rows];
-        console.log(props.focusElement, button)
+        rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].actionType = button.actionType
+        rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].url = button.url
+        rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].toEmail = button.toEmail
+        rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].subjectEmail = button.subjectEmail
+        rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].contentEmail = button.contentEmail
+        rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].phone = button.phone
         rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].style = {
             ...rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].style,
             color: `rgb(${button.textColor.r}, ${button.textColor.g}, ${button.textColor.b})`,
@@ -103,7 +111,8 @@ const EditorEmailMenuButton = (props) => {
             borderStyle: `${button.border.topType} ${button.border.rightType} ${button.border.bottomType} ${button.border.leftType}`,
             borderColor: `rgb(${button.border.topColor.r}, ${button.border.topColor.g}, ${button.border.topColor.b}) rgb(${button.border.rightColor.r}, ${button.border.rightColor.g}, ${button.border.rightColor.b}) rgb(${button.border.bottomColor.r}, ${button.border.bottomColor.g}, ${button.border.bottomColor.b}) rgb(${button.border.leftColor.r}, ${button.border.leftColor.g}, ${button.border.leftColor.b})`,
             borderRadius: `${button.borderRadius.top}px ${button.borderRadius.right}px ${button.borderRadius.bottom}px ${button.borderRadius.left}px`,
-            margin: `${button.margin.top}px ${button.margin.right}px ${button.margin.bottom}px ${button.margin.left}px`
+            margin: `${button.margin.top}px ${button.margin.right}px ${button.margin.bottom}px ${button.margin.left}px`,
+            fontSize: `${button.fontSize}px`
         }
         rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].columnElementStyle = {
             ...rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].columnElementStyle,
@@ -118,11 +127,12 @@ const EditorEmailMenuButton = (props) => {
 
     useEffect(() => {
         setButton({
-            actionType: 'site',
-            url: '',
-            fromEmail: '',
-            toEmail: '',
-            contentEmail: '',
+            actionType: props.focusElement.element.actionType || 'site',
+            url: props.focusElement.element.url || '',
+            toEmail: props.focusElement.element.toEmail || '',
+            subjectEmail: props.focusElement.element.subjectEmail || '',
+            contentEmail: props.focusElement.element.contentEmail || '',
+            phone: props.focusElement.element.phone || '',
             textColor: props.focusElement.element.style.color ? {
                 r: parseInt(props.focusElement.element.style.color.split(")")[0].slice(4).split(", ")[0]),
                 g: parseInt(props.focusElement.element.style.color.split(")")[0].slice(5).split(", ")[1]),
@@ -130,13 +140,13 @@ const EditorEmailMenuButton = (props) => {
             } : { r: 255, g: 255, b: 255 },
             backgroundColor: props.focusElement.element.style.backgroundColor || {},
             width: !isNaN(parseFloat(props.focusElement.element.style.width)) ? parseInt(props.focusElement.element.style.width) : 'auto',
-            textAlign: props.rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].columnElementStyle.textAlign,
+            textAlign: props.focusElement.element.columnElementStyle.textAlign || 'center',
             lineHeight: !isNaN(parseInt(props.focusElement.element.style.lineHeight)) ? parseInt(props.focusElement.element.style.lineHeight) : 100,
             padding: {
-                top: parseInt(props.focusElement.element.style.padding.split(" ")[0]) || 10,
-                right: parseInt(props.focusElement.element.style.padding.split(" ")[1]) || 20,
-                bottom: parseInt(props.focusElement.element.style.padding.split(" ")[2]) || 10,
-                left: parseInt(props.focusElement.element.style.padding.split(" ")[3]) || 20
+                top: props.focusElement.element.style.padding.split(" ")[0] ? parseInt(props.focusElement.element.style.padding.split(" ")[0]) : 10,
+                right: props.focusElement.element.style.padding.split(" ")[1] ? parseInt(props.focusElement.element.style.padding.split(" ")[1]) : 20,
+                bottom: props.focusElement.element.style.padding.split(" ")[2] ? parseInt(props.focusElement.element.style.padding.split(" ")[2]) : 10,
+                left: props.focusElement.element.style.padding.split(" ")[3] ? parseInt(props.focusElement.element.style.padding.split(" ")[3]) : 20
             },
             border: {
                 top: props.focusElement.element.style.borderWidth ? parseInt(props.focusElement.element.style.borderWidth.split(" ")[0]) : 0,
@@ -189,7 +199,8 @@ const EditorEmailMenuButton = (props) => {
                 right: 5,
                 bottom: 5,
                 left: 5
-            }
+            },
+            fontSize: props.focusElement.element.style.fontSize ? parseInt(props.focusElement.element.style.fontSize) : 15,
         })
         setButtonWidth(props.focusElement.element.style.width === 'auto' ? false : true)
     }, [props.focusElement])
@@ -224,11 +235,19 @@ const EditorEmailMenuButton = (props) => {
                                     </div>
                                     <div className="editor-menu-collapse-input">
                                         <span className="span-label">Тема</span>
-                                        <input className="text-span" type="text" value={button.fromEmail} onChange={(e) => setButton({ ...button, fromEmail: e.target.value })} />
+                                        <input className="text-span" type="text" value={button.subjectEmail} onChange={(e) => setButton({ ...button, subjectEmail: e.target.value })} />
                                     </div>
                                     <div className="editor-menu-collapse-input">
                                         <span className="span-label-content">Содержимое</span>
                                         <textarea className="content-span" value={button.contentEmail} onChange={(e) => setButton({ ...button, contentEmail: e.target.value })}></textarea>
+                                    </div>
+                                </div>
+                            }
+                            {button.actionType === 'phone' &&
+                                <div className="editor-menu-collapse-block">
+                                    <div className="editor-menu-collapse-input">
+                                        <span className="span-label">Телефон</span>
+                                        <input className="text-span" type="text" value={button.phone} onChange={(e) => setButton({ ...button, phone: e.target.value })} />
                                     </div>
                                 </div>
                             }
@@ -238,6 +257,7 @@ const EditorEmailMenuButton = (props) => {
             </Collapsible>
             <Collapsible trigger="Парметры кнопки" triggerTagName="h5" triggerClassName="editor-menu-collapse-title close" triggerOpenedClassName="editor-menu-collapse-title" contentOuterClassName="editor-menu-collapse-block" transitionTime={100} open={true}>
                 <Color value={button.textColor} onChange={(value) => setButton({ ...button, textColor: { ...value } })} />
+                <FontSize value={button.fontSize} onChange={(value) => setButton({ ...button, fontSize: value })} />
                 <div className="editor-menu-collapse-item">
                     <div className="editor-menu-collapse-line">
                         <span>Цвет фона</span>

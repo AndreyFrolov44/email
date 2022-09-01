@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 const Popup = observer((props) => {
     return (
         <>
-            <div style={{ 'max-width': props.width }} className="popup">
+            <div style={{ maxWidth: props.width }} className="popup">
                 {props.hide &&
                     <span className="popup-close" onClick={() => {
                         if (props.hide) props.click(false)

@@ -1,6 +1,6 @@
 from fastapi import Depends, HTTPException, status
 
-from services import users, lists, contacts, templates, user_templates, tags, template_tags, mailings, user_images
+from services import users, lists, contacts, templates, user_templates, tags, template_tags, mailings, user_images, mailing_contacts
 from db.base import database
 from core.security import JWTBearer, decode_access_token
 from models.users import UserInfo
@@ -42,11 +42,15 @@ def get_user_image_service() -> user_images.UserImagesService:
     return user_images.UserImagesService(database)
 
 
+def get_mailing_contacts_service() -> mailing_contacts.MailingContactsService:
+    return mailing_contacts.MailingContactsService(database)
+
+
 async def get_current_user(
     users: users.UserService = Depends(get_user_service),
     token: str = Depends(JWTBearer()),
 ) -> UserInfo:
-    cred_exception = HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Credentials are not valid")
+    cred_exception = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Вы не авторизированы")
     payload = decode_access_token(token)
     if payload is None:
         raise cred_exception

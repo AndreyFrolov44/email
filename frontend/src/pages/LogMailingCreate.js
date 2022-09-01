@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router";
 
 import { Context } from "..";
@@ -10,11 +10,13 @@ import MailingTemplates from "../components/templates/MailingTemplates";
 import { MAILININGS_ROUTE } from "../utils/consts";
 
 const LogMailingCreate = observer((props) => {
+    const [searchParams, setSearchParams] = useSearchParams();
+
     const [mailingName, setMailingName] = useState('');
     const [listsList, setListsList] = useState([]);
     const [selectedList, setSelectedList] = useState({});
     const [templatesList, setTemplatesList] = useState([]);
-    const [selectedTemplate, setSelectedTemaplste] = useState({});
+    const [selectedTemplate, setSelectedTemplate] = useState({});
     const [userEmail, setUserEmail] = useState('');
     const [organisationName, setOrganisationName] = useState('');
 
@@ -50,8 +52,13 @@ const LogMailingCreate = observer((props) => {
         templates.allSaved(limit, skip)
             .then(() => {
                 setTemplatesList(templates.savedTemplates);
+                if (searchParams.get('template')) setSelectedTemplate(templates.savedTemplates.find(template => template.id === parseInt(searchParams.get('template'))))
             });
     }, [null])
+
+    useEffect(() => {
+        console.log(selectedTemplate)
+    }, [selectedTemplate])
 
     return (
         <section className={props.sideBarActive ? 'mailing-create menu-active' : 'mailing-create menu-closed'} id="section">
@@ -79,7 +86,7 @@ const LogMailingCreate = observer((props) => {
                         <h2>Сохраненные шаблоны</h2>
                         <div className="template-wrap">
                             {templatesList.map(el =>
-                                <MailingTemplates popup={setClickTemplatePopup} setSelected={setSelectedTemaplste} t={el} />
+                                <MailingTemplates popup={setClickTemplatePopup} setSelected={setSelectedTemplate} t={el} />
                             )}
                         </div>
                     </Popup>

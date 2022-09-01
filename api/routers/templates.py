@@ -37,28 +37,29 @@ async def create_template(
     img: UploadFile = File(...),
     name: str = Form(...),
     html: str = Form(...),
+    rows: str = Form(...),
     templates: TemplateService = Depends(get_template_service),
-    # file: UploadFile = File(...),
-
     current_user: User = Depends(get_current_user),
     user_templates: UserTemplatesService = Depends(get_user_templates_service)
 ):
     if current_user is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Вы не авторизированы")
-    template = await templates.create(user=current_user, name=name, html=html, img=img, user_templates=user_templates)
+    template = await templates.create(user=current_user, name=name, html=html, img=img, user_templates=user_templates, rows=rows)
     return template
 
-@router.put('/', response_model=Template)
+@router.put('/{id}', response_model=Template)
 async def update_templates(
     id: int,
-    name: str,
+    img: UploadFile = File(...),
+    name: str = Form(...),
+    html: str = Form(...),
+    rows: str = Form(...),
     templates: TemplateService = Depends(get_template_service),
-    current_user: User = Depends(get_current_user),
-    tags: TemplateTags = Depends(get_template_service)
+    current_user: User = Depends(get_current_user)
 ):
     if current_user is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Вы не авторизированы")
-    return await templates.update(user=current_user, id=id, name=name, tags=tags)
+    return await templates.update(id=id, user=current_user, name=name, html=html, img=img, rows=rows)
 
 @router.delete('/{id}')
 async def delete_template(

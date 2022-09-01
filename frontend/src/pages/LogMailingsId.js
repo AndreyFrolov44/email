@@ -29,21 +29,22 @@ const LogMailingsId = observer((props) => {
         mailings.InfoMailings(params.id)
             .then(() => {
                 setMailing(mailings.mailingsInfo)
+                console.log(mailings.mailingsInfo)
             })
     }, [null])
 
     useEffect(() => {
-        if (mailing.list_id)
-            contacts.allContactsInList(mailing.list_id, limit, skip)
-                .then(() => {
-                    setContactsList(contacts.contacts)
-                })
+        console.log(mailing)
+        // if (mailing.list_id)
+        //     contacts.allContactsInList(mailing.list_id, limit, skip)
+        //         .then(() => {
+        //             setContactsList(contacts.contacts)
+        //         })
     }, [mailing])
 
     return (
         <section className={props.sideBarActive ? 'mailing-details menu-active' : 'mailing-details menu-closed'} id="section">
             <h1>{mailing.title}</h1>
-            <p>ИСПРАВИТЬ ДОБАВЛЕНИЕ КОНТАКТОВ</p>
             <Tab>
                 <div name={'statistics'} nameRu={'Статистика'}>
                     <ul className="mailing-details-list">
@@ -102,11 +103,11 @@ const LogMailingsId = observer((props) => {
                                 </th>
                                 <th>Телефон</th>
                                 <th>Имя</th>
-                                <th>Состояние</th>
+                                <th>Прочитано</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {contactsList.map(el =>
+                            {mailing.contacts && mailing.contacts.map(el =>
                                 <ContactsMailingTable c={el} key={el.id} />
                             )}
                         </tbody>

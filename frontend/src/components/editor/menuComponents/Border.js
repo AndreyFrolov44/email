@@ -113,7 +113,7 @@ const Border = (props) => {
                                 })
                             }>+</button>
                         </div>
-                        <div onClick={() => setBorderColorActive({ ...borderColorActive, all: true })} className="editor-menu-color" style={{ 'background-color': `rgb(${border.topColor.r}, ${border.topColor.g}, ${border.topColor.b})` }}></div>
+                        <div onClick={() => setBorderColorActive({ ...borderColorActive, all: true })} className="editor-menu-color" style={{ backgroundColor: `rgb(${border.topColor.r}, ${border.topColor.g}, ${border.topColor.b})` }}></div>
                         {borderColorActive.all &&
                             <div className="editor-menu-color-container">
                                 <div style={{
@@ -149,7 +149,7 @@ const Border = (props) => {
                             }} />
                             <button onClick={() => setBorder({ ...border, top: border.top + 1 })}>+</button>
                         </div>
-                        <div onClick={() => setBorderColorActive({ ...borderColorActive, top: true })} className="editor-menu-color" style={{ 'background-color': `rgb(${border.topColor.r}, ${border.topColor.g}, ${border.topColor.b})` }}></div>
+                        <div onClick={() => setBorderColorActive({ ...borderColorActive, top: true })} className="editor-menu-color" style={{ backgroundColor: `rgb(${border.topColor.r}, ${border.topColor.g}, ${border.topColor.b})` }}></div>
                         {borderColorActive.top &&
                             <div className="editor-menu-color-container">
                                 <div style={{
@@ -183,7 +183,7 @@ const Border = (props) => {
                             }} />
                             <button onClick={() => setBorder({ ...border, right: border.right + 1 })}>+</button>
                         </div>
-                        <div onClick={() => setBorderColorActive({ ...borderColorActive, right: true })} className="editor-menu-color" style={{ 'background-color': `rgb(${border.rightColor.r}, ${border.rightColor.g}, ${border.rightColor.b})` }}></div>
+                        <div onClick={() => setBorderColorActive({ ...borderColorActive, right: true })} className="editor-menu-color" style={{ backgroundColor: `rgb(${border.rightColor.r}, ${border.rightColor.g}, ${border.rightColor.b})` }}></div>
                         {borderColorActive.right &&
                             <div className="editor-menu-color-container">
                                 <div style={{
@@ -217,7 +217,7 @@ const Border = (props) => {
                             }} />
                             <button onClick={() => setBorder({ ...border, left: border.left + 1 })}>+</button>
                         </div>
-                        <div onClick={() => setBorderColorActive({ ...borderColorActive, left: true })} className="editor-menu-color" style={{ 'background-color': `rgb(${border.leftColor.r}, ${border.leftColor.g}, ${border.leftColor.b})` }}></div>
+                        <div onClick={() => setBorderColorActive({ ...borderColorActive, left: true })} className="editor-menu-color" style={{ backgroundColor: `rgb(${border.leftColor.r}, ${border.leftColor.g}, ${border.leftColor.b})` }}></div>
                         {borderColorActive.left &&
                             <div className="editor-menu-color-container">
                                 <div style={{
@@ -251,7 +251,7 @@ const Border = (props) => {
                             }} />
                             <button onClick={() => setBorder({ ...border, bottom: border.bottom + 1 })}>+</button>
                         </div>
-                        <div onClick={() => setBorderColorActive({ ...borderColorActive, bottom: true })} className="editor-menu-color" style={{ 'background-color': `rgb(${border.bottomColor.r}, ${border.bottomColor.g}, ${border.bottomColor.b})` }}></div>
+                        <div onClick={() => setBorderColorActive({ ...borderColorActive, bottom: true })} className="editor-menu-color" style={{ backgroundColor: `rgb(${border.bottomColor.r}, ${border.bottomColor.g}, ${border.bottomColor.b})` }}></div>
                         {borderColorActive.bottom &&
                             <div className="editor-menu-color-container">
                                 <div style={{

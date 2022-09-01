@@ -1,19 +1,23 @@
 import datetime
 import smtplib
+import uuid
 
 from typing import List
 from sqlalchemy import text
 from fastapi import HTTPException, status, BackgroundTasks
 from email.message import EmailMessage
 from email.utils import formataddr
+from bs4 import BeautifulSoup
 
 from .base import BaseService
 from .lists import ListService
 from .templates import TemplateService
+from .mailing_contacts import MailingContactsService
 from db import mailing
 from models.users import User
-from models.mailings import Mailing, MailingCreate, MailingInfo, MailingAll
-from core.config import SMTP, EMAIL_ADDRESS, EMAIL_PASSWORD
+from models.mailings import Mailing, MailingCreate, MailingInfo, MailingAll, MailingInfoContacts
+from models.mailing_contacts import MailingContacts
+from core.config import SMTP, EMAIL_ADDRESS, EMAIL_PASSWORD, HOST
 
 
 class MailingService(BaseService):
@@ -41,12 +45,12 @@ class MailingService(BaseService):
         # query = mailing.join().select().where(mailing.c.user_id == user.id).limit(limit).offset(skip)
         return await self.database.fetch_all(query)
 
-    async def get_by_id(self, mailing_id: int) -> Mailing:
+    async def get_by_id(self, mailing_id: int) -> MailingInfo:
         query = mailing.select().where(mailing.c.id == mailing_id)
         m = await self.database.fetch_one(query)
         if m is None:
             return None
-        return Mailing.parse_obj(m)
+        return MailingInfo.parse_obj(m)
 
     async def info(self, user: User, mailing_id: int) -> MailingInfo:
         query = mailing.select().where(mailing.c.id == mailing_id)
@@ -58,7 +62,13 @@ class MailingService(BaseService):
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="У вас нет доступа к данной рассылке")
         return m
 
-    async def create(self, m: MailingCreate, lists: ListService, templates: TemplateService, user: User, background_tasks: BackgroundTasks) -> Mailing:
+    async def info_contacts(self, user: User, id: int, mailing_contacts: MailingContactsService, limit: int = 100, skip: int = 0) -> MailingInfoContacts:
+        m = await self.info(user=user, mailing_id=id)
+        m = MailingInfoContacts.parse_obj(m)
+        m.contacts = await mailing_contacts.get_contacts_by_mailing_id(mailing_id=id, limit=limit, skip=skip)
+        return m
+
+    async def create(self, m: MailingCreate, lists: ListService, templates: TemplateService, mailing_contacts_service: MailingContactsService, user: User, background_tasks: BackgroundTasks) -> Mailing:
         list = await lists.get_by_id(m.list_id)
         if list is None or list.user_id != user.id:
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="У вас нет доступа к данному списку")
@@ -88,7 +98,8 @@ class MailingService(BaseService):
             from_email=mailing_create.email,
             subject=mailing_create.title,
             from_name=mailing_create.organisation,
-            mailing_id=mailing_create.id
+            mailing_id=mailing_create.id,
+            mailing_contacts=mailing_contacts_service
         )
         return mailing_create
 
@@ -96,9 +107,12 @@ class MailingService(BaseService):
         query = mailing.update().where(mailing.c.id == id).values(kwargs)
         await self.database.execute(query)
 
-    async def send_mail(self, src, contacts, from_email, subject, from_name, mailing_id):
+    async def send_mail(self, src, contacts, from_email, subject, from_name, mailing_id, mailing_contacts):
         with open(src, "r") as file:
             text = file.read()
+
+        soup = BeautifulSoup(text, "html.parser")
+        img = soup.find('img', {'class': ['pixel_reed']})
 
         server = smtplib.SMTP(SMTP, 587)
         server.set_debuglevel(True)
@@ -109,15 +123,27 @@ class MailingService(BaseService):
         delivery = len(contacts)
         for contact in contacts:
             try:
+                uid = str(uuid.uuid4())
+                img['src'] = f'{HOST}api/mailings/read/{uid}'
+                # print(img)
+                # print(soup)
                 msg = EmailMessage()
                 msg['Subject'] = subject
                 msg['From'] = formataddr((from_name, EMAIL_ADDRESS))
                 msg['Reply-To'] = formataddr((from_name, from_email))
                 msg['To'] = contact.email
                 msg.set_content(f"""\
-                {text}
+                {soup}
                 """, subtype='html')
                 server.send_message(msg)
+
+                mc = MailingContacts(
+                    mailing_id=mailing_id,
+                    contact_id=contact.id,
+                    uuid=uid
+                )
+                await mailing_contacts.create(mc)
+
                 sent += 1
             except Exception as e:
                 delivery -= 1

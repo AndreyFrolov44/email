@@ -10,7 +10,7 @@ const ContactsMailingTable = observer((props) => {
             </th>
             <th>{props.c.phone_number}</th>
             <th>{props.c.name}</th>
-            <th>Доставлено</th>
+            <th className="column-center">{props.c.read ? '+' : '-'}</th>
         </tr>
     )
 })

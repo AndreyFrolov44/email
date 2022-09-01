@@ -27,6 +27,18 @@ export default class TemplatesStore {
         this.imageId = data;
     }
 
+    addSaved(data) {
+        this.savedTemplates.push(data);
+    }
+
+    updateSaved(data) {
+        this.savedTemplates.splice(this.savedTemplates.findIndex(template => template.id === data.id), 1, data);
+    }
+
+    deleteSaved(id) {
+        this.savedTemplates.splice(this.savedTemplates.findIndex(template => template.id === id), 1);
+    }
+
     async allSaved(limit = 100, skip = 0) {
         try {
             const response = await TemplatesService.get_save(limit, skip);
@@ -66,6 +78,46 @@ export default class TemplatesStore {
             console.log("Запрос удаления изображения")
         } catch (e) {
             console.log(e.response?.data?.message);
+        }
+    }
+
+    async createTemplate(formData) {
+        try {
+            const response = await TemplatesService.create_temaplate(formData);
+            this.addSaved(response.data)
+            console.log("create template");
+        } catch (e) {
+            console.log(e.response);
+        }
+    }
+
+    async updateTemplate(id, formData) {
+        try {
+            const response = await TemplatesService.update_temaplate(id, formData);
+            this.updateSaved(response.data)
+            console.log("update template");
+        } catch (e) {
+            console.log(e.response);
+        }
+    }
+
+    async deleteTemplate(id) {
+        try {
+            const response = await TemplatesService.delete_template(id);
+            this.deleteSaved(id)
+            console.log("delete template");
+        } catch (e) {
+            console.log(e?.response);
+        }
+    }
+
+    async templateInfo(id) {
+        try {
+            const response = await TemplatesService.get_template_info(id);
+            console.log("template info id=" + id);
+            return response.data;
+        } catch (e) {
+            console.log(e?.response);
         }
     }
 }

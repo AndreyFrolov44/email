@@ -13,8 +13,10 @@ const Login = () => {
 
     const logClick = (e) => {
         e.preventDefault();
-        user.login(email, password);
-        navigate(LOG_CONTACTS);
+        user.login(email, password).then(() => {
+            navigate(LOG_CONTACTS)
+        });
+
     };
 
 

@@ -6,6 +6,7 @@ import TextAlignFlex from "../menuComponents/TextAlignFlex";
 import FlexDirection from "../menuComponents/FlexDirection";
 import Padding from "../menuComponents/Padding";
 import Margin from "../menuComponents/Margin";
+import TextAlign from "../menuComponents/TextAlign";
 
 
 const EditorEmailMenuMenu = (props) => {
@@ -17,8 +18,10 @@ const EditorEmailMenuMenu = (props) => {
             g: parseInt(props.focusElement.element.style.color.split(")")[0].slice(5).split(", ")[1]),
             b: parseInt(props.focusElement.element.style.color.split(")")[0].slice(5).split(", ")[2]),
         } : { r: 0, g: 0, b: 0 },
-        justifyContent: props.focusElement.element.listStyle.justifyContent || props.focusElement.element.listStyle.alignItems || 'center',
-        flexDirection: props.focusElement.element.listStyle.flexDirection || 'row',
+        textAlign: props.focusElement.element.listStyle.textAlign || 'center',
+        itemDisplay: props.focusElement.element.itemStyle.display || 'inlineBlock',
+        // justifyContent: props.focusElement.element.listStyle.justifyContent || props.focusElement.element.listStyle.alignItems || 'center',
+        // flexDirection: props.focusElement.element.listStyle.flexDirection || 'row',
         padding: props.focusElement.element.style.padding ? {
             top: parseInt(props.focusElement.element.style.padding.split(" ")[0]),
             right: parseInt(props.focusElement.element.style.padding.split(" ")[1]),
@@ -70,7 +73,6 @@ const EditorEmailMenuMenu = (props) => {
     }
 
     useEffect(() => {
-        console.log(menu, props.focusElement)
         const rows = [...props.rows];
         rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].items = [...menu.items]
         rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].style = {
@@ -81,15 +83,13 @@ const EditorEmailMenuMenu = (props) => {
         rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].listStyle = {
             ...rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].listStyle,
             fontSize: `${menu.fontSize}px`,
-            flexDirection: menu.flexDirection,
+            textAlign: menu.textAlign,
             padding: `${menu.paddingList.top}px ${menu.paddingList.right}px ${menu.paddingList.bottom}px ${menu.paddingList.left}px`
         }
-        if (menu.flexDirection === 'row') {
-            rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].listStyle.justifyContent = menu.justifyContent
-            delete rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].listStyle.alignItems;
+        rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].itemStyle = {
+            display: menu.itemDisplay
         }
-        else {
-            rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].listStyle.alignItems = menu.justifyContent
+        if (menu.itemDisplay === 'block') {
             delete rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].listStyle.justifyContent;
         }
         props.setRows(rows);
@@ -104,8 +104,10 @@ const EditorEmailMenuMenu = (props) => {
                 g: parseInt(props.focusElement.element.style.color.split(")")[0].slice(5).split(", ")[1]),
                 b: parseInt(props.focusElement.element.style.color.split(")")[0].slice(5).split(", ")[2]),
             } : { r: 0, g: 0, b: 0 },
-            justifyContent: props.focusElement.element.listStyle.justifyContent || props.focusElement.element.listStyle.alignItems || 'center',
-            flexDirection: props.focusElement.element.listStyle.flexDirection || 'row',
+            textAlign: props.focusElement.element.listStyle.textAlign || 'center',
+            itemDisplay: props.focusElement.element.itemStyle.display || 'inlineBlock',
+            // justifyContent: props.focusElement.element.listStyle.justifyContent || props.focusElement.element.listStyle.alignItems || 'center',
+            // flexDirection: props.focusElement.element.listStyle.flexDirection || 'row',
             padding: props.focusElement.element.style.padding ? {
                 top: parseInt(props.focusElement.element.style.padding.split(" ")[0]),
                 right: parseInt(props.focusElement.element.style.padding.split(" ")[1]),
@@ -218,8 +220,9 @@ const EditorEmailMenuMenu = (props) => {
             <Collapsible trigger="Стили" triggerTagName="h5" triggerClassName="editor-menu-collapse-title close" triggerOpenedClassName="editor-menu-collapse-title" contentOuterClassName="editor-menu-collapse-block" transitionTime={100} open={true}>
                 <FontSize value={menu.fontSize} onChange={(value) => setMenu({ ...menu, fontSize: value })} />
                 <Color value={menu.color} onChange={(value) => setMenu({ ...menu, color: { ...value } })} />
-                <TextAlignFlex value={menu.justifyContent} onChange={(value) => setMenu({ ...menu, justifyContent: value })} />
-                <FlexDirection value={menu.flexDirection} onChange={(value) => setMenu({ ...menu, flexDirection: value })} />
+                {/* <TextAlignFlex value={menu.justifyContent} onChange={(value) => setMenu({ ...menu, justifyContent: value })} /> */}
+                <TextAlign value={menu.textAlign} onChange={(value) => setMenu({ ...menu, textAlign: value })} />
+                <FlexDirection value={menu.flexDirection} onChange={(value) => setMenu({ ...menu, itemDisplay: value })} />
                 <Padding value={menu.padding} onChange={(value) => setMenu({ ...menu, padding: { ...value } })} />
             </Collapsible>
             <Collapsible trigger="Общее" triggerTagName="h5" triggerClassName="editor-menu-collapse-title close" triggerOpenedClassName="editor-menu-collapse-title" contentOuterClassName="editor-menu-collapse-block" transitionTime={100} open={true}>

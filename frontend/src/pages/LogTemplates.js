@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import { observer } from "mobx-react-lite";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 import { Context } from "..";
 import Templates from "../components/templates/Templates";
 import Tab from "../components/tab/Tab";
+import { CREATE_TEMPLATES_ROUTE, MAILINING_CREATE } from "../utils/consts";
+import Popup from "../components/popup/Popup";
 
 const LogTemplates = observer((props) => {
-    const [saved, setSaved] = useState([])
-    const [library, setLibrary] = useState([])
+    const [saved, setSaved] = useState([]);
+    const [library, setLibrary] = useState([]);
 
     const [limit, setLimit] = useState(100);
     const [skip, setSkip] = useState(0);
@@ -29,6 +31,10 @@ const LogTemplates = observer((props) => {
             });
     }, [null])
 
+    useEffect(() => {
+        setSaved(templates.savedTemplates);
+        props.setSideBarActive(true)
+    }, [templates.savedTemplates])
 
     return (
         <section className={props.sideBarActive ? 'template menu-active' : 'template menu-closed'} id="section">
@@ -37,7 +43,7 @@ const LogTemplates = observer((props) => {
             <Tab>
                 <div name={'saved'} nameRu={'Сохраненные'}>
                     <div className="tab-top">
-                        <a href="#" className="button">Добавить новый шаблон</a>
+                        <Link to={CREATE_TEMPLATES_ROUTE} className="button">Добавить новый шаблон</Link>
                         <input type="text" className="tab-search" placeholder="Поиск по названию" />
                     </div>
                     <div className="template-wrap">

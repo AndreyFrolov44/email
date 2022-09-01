@@ -4,6 +4,7 @@ import Color from "../menuComponents/Color";
 import LineHeight from "../menuComponents/LineHeight";
 import TextAlign from "../menuComponents/TextAlign";
 import Margin from "../menuComponents/Margin";
+import FontSize from "../menuComponents/FontSize";
 
 
 const EditorEmailMenuText = (props) => {
@@ -26,6 +27,7 @@ const EditorEmailMenuText = (props) => {
             bottom: 0,
             left: 0
         },
+        fontSize: props.focusElement.element.style.fontSize ? parseInt(props.focusElement.element.style.fontSize) : 16,
     })
 
     useEffect(() => {
@@ -34,7 +36,8 @@ const EditorEmailMenuText = (props) => {
             ...rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].style,
             color: `rgb(${text.color.r}, ${text.color.g}, ${text.color.b})`,
             lineHeight: `${text.lineHeight}%`,
-            margin: `${text.margin.top}px ${text.margin.right}px ${text.margin.bottom}px ${text.margin.left}px`
+            margin: `${text.margin.top}px ${text.margin.right}px ${text.margin.bottom}px ${text.margin.left}px`,
+            fontSize: `${text.fontSize}px`
         }
         rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].columnElementStyle = {
             ...rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].columnElementStyle,
@@ -63,6 +66,7 @@ const EditorEmailMenuText = (props) => {
                 bottom: 0,
                 left: 0
             },
+            fontSize: props.focusElement.element.style.fontSize ? parseInt(props.focusElement.element.style.fontSize) : 16,
         })
     }, [props.focusElement])
 
@@ -70,6 +74,7 @@ const EditorEmailMenuText = (props) => {
         <>
             <Collapsible trigger="Текст" triggerTagName="h5" triggerClassName="editor-menu-collapse-title close" triggerOpenedClassName="editor-menu-collapse-title" contentOuterClassName="editor-menu-collapse-block" transitionTime={100} open={true}>
                 <Color value={text.color} onChange={(value) => setText({ ...text, color: { ...value } })} />
+                <FontSize value={text.fontSize} onChange={(value) => setText({ ...text, fontSize: value })} />
                 <TextAlign value={text.textAlign} onChange={(value) => setText({ ...text, textAlign: value })} />
                 <LineHeight value={text.lineHeight} onChange={(value) => setText({ ...text, lineHeight: value })} />
             </Collapsible>

@@ -24,7 +24,7 @@ const LogContacts = observer((props) => {
     const [listsCheckAll, setListsCheckAll] = useState(false);
     const [listsCheck, setListsCheck] = useState([]);
 
-    const { contacts, lists } = useContext(Context);
+    const { contacts, lists, user } = useContext(Context);
 
     const contactsSelectAll = e => {
         setContactsCheckAll(!contactsCheckAll);
@@ -48,7 +48,6 @@ const LogContacts = observer((props) => {
             setContactsCheck(contactsCheck.filter(item => item !== parseInt(id)));
         }
         contacts.setCheckedContacts(parseInt(id));
-        console.log(contacts.checkedListsId);
     };
 
     const listsSelectAll = e => {
@@ -73,7 +72,6 @@ const LogContacts = observer((props) => {
             setListsCheck(listsCheck.filter(item => item !== parseInt(id)));
         }
         lists.setCheckedListsId(parseInt(id));
-        console.log(lists.checkedListsId);
     };
 
     useEffect(() => {
@@ -110,8 +108,6 @@ const LogContacts = observer((props) => {
         <section id="section" className={props.sideBarActive ? 'log-contact menu-active' : 'log-contact menu-closed'}>
             <h1>Контакты</h1>
             <h2>У вас добавлено {contactsCount} контакта</h2>
-            <p>По вашему тарифу, вам доступно еще НАПИСАТЬ СКОЛЬКО ДОСТУПНО. Для увеличения доступного количества контактов - обновите свой тариф. </p>
-            <a href="#" className="contact-link">Переключить тариф</a>
             <Tab>
                 <div name={'contacts'} nameRu={'Контакты'}>
                     <div className="tab-top">

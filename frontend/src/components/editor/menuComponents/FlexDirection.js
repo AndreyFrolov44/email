@@ -9,7 +9,6 @@ const FlexDirection = (props) => {
     }, [value])
 
     useEffect(() => {
-        console.log(value, props.value)
         if (props.value === value) return;
         setValue(props.value);
     }, [props.value])
@@ -20,8 +19,8 @@ const FlexDirection = (props) => {
                 <span>Расположение</span>
                 <div className="editor-menu-collapse-inputs-block select">
                     <select value={value} onChange={(e) => setValue(e.target.value)}>
-                        <option value={'row'}>Горизонтально</option>
-                        <option value={'column'}>Вертикально</option>
+                        <option value={'inline-block'}>Горизонтально</option>
+                        <option value={'block'}>Вертикально</option>
                     </select>
                 </div>
             </div>

@@ -19,11 +19,11 @@ const EditorEmailMenuHeader = (props) => {
         } : { r: 0, g: 0, b: 0 },
         textAlign: props.focusElement.element.columnElementStyle.textAlign || 'left',
         lineHeight: props.focusElement.element.style.lineHeight ? parseInt(props.focusElement.element.style.lineHeight) : 140,
-        margin: props.focusElement.element.style.margin ? {
-            top: parseInt(props.focusElement.element.style.margin.split(" ")[0]),
-            right: parseInt(props.focusElement.element.style.margin.split(" ")[1]),
-            bottom: parseInt(props.focusElement.element.style.margin.split(" ")[2]),
-            left: parseInt(props.focusElement.element.style.margin.split(" ")[3])
+        padding: props.focusElement.element.style.padding ? {
+            top: parseInt(props.focusElement.element.style.padding.split(" ")[0]),
+            right: parseInt(props.focusElement.element.style.padding.split(" ")[1]),
+            bottom: parseInt(props.focusElement.element.style.padding.split(" ")[2]),
+            left: parseInt(props.focusElement.element.style.padding.split(" ")[3])
         } : {
             top: 0,
             right: 0,
@@ -39,7 +39,7 @@ const EditorEmailMenuHeader = (props) => {
             fontSize: `${header.fontSize}px`,
             color: `rgb(${header.color.r}, ${header.color.g}, ${header.color.b})`,
             lineHeight: `${header.lineHeight}%`,
-            margin: `${header.margin.top}px ${header.margin.right}px ${header.margin.bottom}px ${header.margin.left}px`
+            padding: `${header.padding.top}px ${header.padding.right}px ${header.padding.bottom}px ${header.padding.left}px`
         }
 
         rows[props.focusElement.indexRow].content[props.focusElement.columnIndex].elements[props.focusElement.elementIndex].columnElementStyle = {
@@ -62,11 +62,11 @@ const EditorEmailMenuHeader = (props) => {
             } : { r: 0, g: 0, b: 0 },
             textAlign: props.focusElement.element.columnElementStyle.textAlign || 'left',
             lineHeight: props.focusElement.element.style.lineHeight ? parseInt(props.focusElement.element.style.lineHeight) : 140,
-            margin: props.focusElement.element.style.margin ? {
-                top: parseInt(props.focusElement.element.style.margin.split(" ")[0]),
-                right: parseInt(props.focusElement.element.style.margin.split(" ")[1]),
-                bottom: parseInt(props.focusElement.element.style.margin.split(" ")[2]),
-                left: parseInt(props.focusElement.element.style.margin.split(" ")[3])
+            padding: props.focusElement.element.style.padding ? {
+                top: parseInt(props.focusElement.element.style.padding.split(" ")[0]),
+                right: parseInt(props.focusElement.element.style.padding.split(" ")[1]),
+                bottom: parseInt(props.focusElement.element.style.padding.split(" ")[2]),
+                left: parseInt(props.focusElement.element.style.padding.split(" ")[3])
             } : {
                 top: 0,
                 right: 0,
@@ -86,7 +86,7 @@ const EditorEmailMenuHeader = (props) => {
                 <LineHeight value={header.lineHeight} onChange={(value) => setHeader({ ...header, lineHeight: value })} />
             </Collapsible>
             <Collapsible trigger="Общее" triggerTagName="h5" triggerClassName="editor-menu-collapse-title close" triggerOpenedClassName="editor-menu-collapse-title" contentOuterClassName="editor-menu-collapse-block" transitionTime={100} open={true}>
-                <Margin value={header.margin} onChange={(value) => setHeader({ ...header, margin: value })} />
+                <Margin value={header.padding} onChange={(value) => setHeader({ ...header, padding: value })} />
             </Collapsible>
         </>
     )

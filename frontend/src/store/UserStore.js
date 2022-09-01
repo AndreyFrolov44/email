@@ -22,8 +22,9 @@ export default class UserStore {
     async login(email, password) {
         try {
             const response = await AuthService.login(email, password);
-            localStorage.setItem('token', response.data.access_token);
             this.setAuth(true);
+            localStorage.setItem('token', response.data.access_token);
+            localStorage.setItem('refreshToken', response.data.refresh_token);
         } catch (e) {
             console.log(e.response?.data?.message);
         }
@@ -32,8 +33,8 @@ export default class UserStore {
     async registration(username, email, password, password2) {
         try {
             const response = await AuthService.registration(username, email, password, password2);
-            console.log(response)
             localStorage.setItem('token', response.data.accessToken);
+            localStorage.setItem('refreshToken', response.data.refresh_token);
             this.setAuth(true);
         } catch (e) {
             console.log(e.response?.data?.message);
@@ -43,6 +44,10 @@ export default class UserStore {
     async logout() {
         try {
             localStorage.removeItem('token');
+            localStorage.removeItem('refreshToken');
+
+
+
             this.setAuth(false);
         } catch (e) {
             console.log(e.response?.data?.message);
@@ -53,8 +58,9 @@ export default class UserStore {
         this.setLoading(true);
         try {
             const response = await axios.get(`${API_URL}/refresh`, { withCredentials: true })
-            console.log(response);
+            console.log("Обновление access токена");
             localStorage.setItem('token', response.data.accessToken);
+            localStorage.setItem('refreshToken', response.data.refresh_token);
             this.setAuth(true);
             // this.setUser(response.data.user);
         } catch (e) {

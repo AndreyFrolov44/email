@@ -32,6 +32,14 @@ services:
       - ./api:/api
     ports:
       - 8000:8000
-    restart: always
+    restart: on-failure
     depends_on:
       - db
+
+  client:
+    build: ./frontend
+    ports:
+      - "80:80"
+    container_name: email-client
+    depends_on:
+      - api

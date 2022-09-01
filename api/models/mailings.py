@@ -1,6 +1,6 @@
 import datetime
 
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel, EmailStr
 
 
@@ -37,3 +37,18 @@ class MailingInfo(Mailing):
     transition: int
     unfollow: int
     spam: int
+
+
+class ContactsList(BaseModel):
+    id: Optional[int]
+    name: str
+    email: str
+    phone_number: str
+    read: bool
+    transition: bool
+    unfollow: bool
+    spam: bool
+
+
+class MailingInfoContacts(MailingInfo):
+    contacts: List[ContactsList] = []

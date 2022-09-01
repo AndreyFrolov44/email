@@ -2,13 +2,16 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from db.base import database
+from db import init_db
+from db.base import database, metadata, engine
 from routers import router
+
+metadata.create_all(engine)
 
 app = FastAPI()
 
 
-origins = ['http://localhost:3000']
+origins = ['http://localhost']
 
 app.add_middleware(
     CORSMiddleware,
@@ -28,6 +31,7 @@ def root():
 
 @app.on_event("startup")
 async def startup():
+    # init_db()
     await database.connect()
 
 @app.on_event("shutdown")

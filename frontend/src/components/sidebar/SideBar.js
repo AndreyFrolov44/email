@@ -30,7 +30,6 @@ const SideBAr = observer((props) => {
                     <li className="menu-item"><NavLink to={CREATE_TEMPLATES_ROUTE}>Конструктор шаблонов</NavLink></li>
                     <li className="menu-item"><NavLink to={TEMPLATES_ROUTE}>Мои шаблоны</NavLink></li>
                     <li className="menu-item"><NavLink to={MAILININGS_ROUTE}>Рассылки</NavLink></li>
-                    <li className="menu-item"><NavLink to={LOG_RATE}>Переключить тариф</NavLink></li>
                     <li className="menu-item"><button className="button" onClick={logout}>Выйти</button></li>
                 </ul>
             </nav>

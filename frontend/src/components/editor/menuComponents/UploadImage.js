@@ -85,16 +85,20 @@ const UploadImage = observer((props) => {
     }, [url, id])
 
     useEffect(() => {
-        if (props.vlaue === url && props.id === id) return;
-        console.log(url)
+        if (props.value === url || props.id === id) return;
+        console.log(props.value, props.id)
         setUrl(props.value);
         setId(props.id);
     }, [props.value, props.id])
 
+    // useEffect(() => {
+
+    // }, [props.value])
+
     return (
         <div className="editor-menu-collapse-item">
             <div className="editor-menu-collapse-line">
-                <span>Цвет текста</span>
+                <span>Фоновое изображение</span>
                 <button onClick={() => fileInput.current.click()} className="editor-menu-file-button">
                     Загрузить изображение
                     <input onChange={clickUpload} ref={fileInput} type="file" accept="image/*" autoComplete="off" className="editor-menu-file" />
