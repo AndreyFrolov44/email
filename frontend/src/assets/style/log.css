@@ -127,7 +127,8 @@ section#section {
   border-color: #ff0000;
 }
 
-.error::placeholder {
+.error::placeholder,
+p.error {
   color: #ff0000;
 }
 
@@ -603,6 +604,7 @@ table input[type=checkbox] {
 
 .log-list .button {
   margin-bottom: 15px;
+  margin-right: 25px;
 }
 
 .log-list-create form input {

@@ -18,7 +18,6 @@ const SideBAr = observer((props) => {
 
     return (
         <section className={props.sideBarActive ? 'menu active' : 'menu'}>
-            <div className="menu-logo">Логотип</div>
             <div className="menu-close">
                 <div className={props.sideBarActive ? 'menu-burger active' : 'menu-burger'} onClick={() => props.setSideBarActive(!props.sideBarActive)}><span className="burger"></span></div>
             </div>

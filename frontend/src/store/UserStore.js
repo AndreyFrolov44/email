@@ -26,7 +26,7 @@ export default class UserStore {
             localStorage.setItem('token', response.data.access_token);
             localStorage.setItem('refreshToken', response.data.refresh_token);
         } catch (e) {
-            console.log(e.response?.data?.message);
+            return e.response?.data?.detail;
         }
     }
 
@@ -37,7 +37,7 @@ export default class UserStore {
             localStorage.setItem('refreshToken', response.data.refresh_token);
             this.setAuth(true);
         } catch (e) {
-            console.log(e.response?.data?.message);
+            return e.response?.data?.detail;
         }
     }
 
@@ -62,7 +62,6 @@ export default class UserStore {
             localStorage.setItem('token', response.data.accessToken);
             localStorage.setItem('refreshToken', response.data.refresh_token);
             this.setAuth(true);
-            // this.setUser(response.data.user);
         } catch (e) {
             console.log(e.response?.data?.message);
         } finally {

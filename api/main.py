@@ -3,18 +3,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy_utils import create_database, database_exists
 
-from db.base import database, metadata, engine, SQLALCHEMY_DATABASE_URL
+from db.base import database, SQLALCHEMY_DATABASE_URL
 from routers import router
 
 if not database_exists(SQLALCHEMY_DATABASE_URL):
     create_database(SQLALCHEMY_DATABASE_URL)
 
-metadata.create_all(engine)
 
 app = FastAPI()
 
-
-origins = ['http://localhost']
+origins = ['*']
 
 app.add_middleware(
     CORSMiddleware,

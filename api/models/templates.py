@@ -26,7 +26,3 @@ class Template(TemplateCreate):
 
 class TemplateGetById(TemplateCreate):
     user_id: int
-
-
-# class TemplateIn(TemplateBase):
-#     pass

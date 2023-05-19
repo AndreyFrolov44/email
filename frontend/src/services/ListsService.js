@@ -13,6 +13,10 @@ export default class ListsService {
         return $api.post('/lists/', { name })
     }
 
+    static async update_list(id, name) {
+        return $api.put('/lists/', { name }, { params: { id: id } })
+    }
+
     static async delete_lists(id) {
         return $api.delete('/lists/', {
             params: { id: id }

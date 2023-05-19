@@ -5,7 +5,7 @@ import dateFormat from "dateformat";
 
 import { Context } from "..";
 import ListContactsTable from "../components/table/ListContactsTable";
-import { LOG_CONTACTS_CREATE } from "../utils/consts";
+import { LOG_CONTACTS_CREATE, LOG_LISTS_UPDATE } from "../utils/consts";
 
 const LogListsId = observer((props) => {
     const params = useParams();
@@ -77,6 +77,7 @@ const LogListsId = observer((props) => {
                 <p>В данном списке пока нет контактов</p>
             }
             <div className="buttons">
+                <Link to={LOG_LISTS_UPDATE.replace(':id', list.id)} className="button">Изменить</Link>
                 <Link to={LOG_CONTACTS_CREATE + '?list=' + list.name} className="button">Добавить контакты</Link>
                 {listContacts.length > 0 &&
                     <button className="button button-dark" disabled={lists.checkedContacts.length == 0 ? true : false} onClick={deleteContacts}>Удалить выбранные</button>
@@ -87,7 +88,7 @@ const LogListsId = observer((props) => {
                     <thead>
                         <tr>
                             <th>
-                                <input type="checkbox"
+                                <input
                                     type="checkbox"
                                     name="selectAll"
                                     id="selectAll"

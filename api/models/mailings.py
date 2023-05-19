@@ -7,7 +7,6 @@ from pydantic import BaseModel, EmailStr
 class MailingBase(BaseModel):
     template_id: int
     list_id: int
-    # date: datetime.date
     email: EmailStr
     title: str
     organisation: str

@@ -1,4 +1,4 @@
-import { HOME_ROUTE, CONTACTS_ROUTE, RATE_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE, LOG_CONTACTS, TEMPLATES_ROUTE, TEMPLATE_INFO_ROUTE, MAILININGS_ROUTE, MAILININGS_ID_ROUTE, LOG_RATE, LOG_LISTS, LOG_LISTS_ID, LOG_LIST_CREATE, LOG_CONTACTS_CREATE, MAILINING_CREATE, CREATE_TEMPLATES_ROUTE, TEST_TEMPLATE, EDIT_TEMPLATES_ROUTE } from "./utils/consts";
+import { HOME_ROUTE, CONTACTS_ROUTE, RATE_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE, LOG_CONTACTS, TEMPLATES_ROUTE, TEMPLATE_INFO_ROUTE, MAILININGS_ROUTE, MAILININGS_ID_ROUTE, LOG_RATE, LOG_LISTS, LOG_LISTS_ID, LOG_LIST_CREATE, LOG_CONTACTS_CREATE, MAILINING_CREATE, CREATE_TEMPLATES_ROUTE, TEST_TEMPLATE, EDIT_TEMPLATES_ROUTE, LOG_LISTS_UPDATE } from "./utils/consts";
 import Home from "./pages/Home";
 import LogContacts from "./pages/LogContacts";
 import LogTemplates from "./pages/LogTemplates";
@@ -12,6 +12,7 @@ import Register from "./pages/Register";
 import LogRate from "./pages/LogRate";
 import LogListsId from "./pages/LogListsId";
 import LogListCreate from "./pages/LogListCreate";
+import LogListUpdate from "./pages/LogListUpdate";
 import LogContactsCreate from "./pages/LogContactsCreate";
 import LogMailingCreate from "./pages/LogMailingCreate";
 import LogCreateTemplate from "./pages/LogCreateTemplate";
@@ -74,6 +75,10 @@ export const authRoutes = [
     {
         path: LOG_LIST_CREATE,
         Component: LogListCreate
+    },
+    {
+        path: LOG_LISTS_UPDATE,
+        Component: LogListUpdate
     },
 ]
 

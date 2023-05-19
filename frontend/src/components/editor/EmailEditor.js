@@ -80,7 +80,9 @@ const EmailEditor = observer((props) => {
     useEffect(() => {
         if (!blankClass) {
             html2canvas(templateRef.current, {
-                useCORS: true
+                useCORS: true,
+                allowTaint: true,
+                proxy: "https://cors-anywhere.herokuapp.com/"
             }).then((canvas) => {
                 let formData = new FormData();
 

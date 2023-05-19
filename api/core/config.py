@@ -20,5 +20,10 @@ SMTP = config("SMTP", cast=str, default="")
 EMAIL_ADDRESS = config("EMAIL_ADDRESS", cast=str, default="")
 EMAIL_PASSWORD = config("EMAIL_PASSWORD", cast=str, default="")
 
-# MAIN_DIRECTORY = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
+CELERY_BROKER_URL = config("CELERY_BROKER_URL", cast=str, default="redis://localhost:6379")
+CELERY_RESULT_BACKEND = config("CELERY_RESULT_BACKEND", cast=str, default="redis://localhost:6379")
+
+REDIS_HOST = config("REDIS_HOST", cast=str, default="redis")
+REDIS_PORT = config("REDIS_PORT", cast=str, default="5370")
+
 MAIN_DIRECTORY = os.getcwd()

@@ -7,18 +7,29 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
+    const [authError, setError] = useState();
 
     const { user } = useContext(Context);
 
     const regClick = (e) => {
         e.preventDefault();
-        user.registration(username, email, password, password2);
+        user.registration(username, email, password, password2)
+            .then(error => {
+                console.log(error)
+                if (error) {
+                    setError(authError);
+                }
+            })
     };
+
 
     return (
         <section className="login">
             <div className="container">
                 <form className="login-form">
+                    {authError &&
+                        <p className="error">{authError}</p>
+                    }
                     <label for="username">Введите имя пользователя</label>
                     <input id="username" value={username} type="text" onChange={e => setUsername(e.target.value)} placeholder="Имя пользователя" />
                     <label for="email">Введите почту</label>

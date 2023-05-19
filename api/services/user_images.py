@@ -52,6 +52,3 @@ class UserImagesService(BaseService):
 
     async def _delete_image(self, file_name: str):
         await aiofiles.os.remove(file_name)
-        # async with aiofiles.open(file_name, "wb") as buffer:
-        #     # data = await file.read()
-        #     await buffer.write(data)

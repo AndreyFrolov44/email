@@ -4,7 +4,6 @@ services:
   db:
     container_name: postgres-email
     image: postgres:12
-    restart: on-failure
     env_file:
       - ./.env
     ports:
@@ -19,11 +18,13 @@ services:
       - ./.env
     volumes:
       - ./api:/api
+      - /api/venv
     ports:
       - 8000:8000
-    restart: on-failure
+    command: [ "/api/api.sh" ]
     depends_on:
       - db
+      - redis
 
   client:
     build: ./frontend
@@ -32,3 +33,33 @@ services:
     container_name: email-client
     depends_on:
       - api
+
+  redis:
+    image: redis:7
+    container_name: email-redis
+
+  celery:
+    build: ./api
+    env_file:
+      - ./.env
+    container_name: email-celery
+    command: [ "/api/celery.sh", "celery" ]
+    volumes:
+      - ./api:/api
+      - /api/venv
+    depends_on:
+      - redis
+      - api
+
+  flower:
+    build: ./api
+    env_file:
+      - ./.env
+    container_name: email-flower
+    command: [ "/api/celery.sh", "flower" ]
+    depends_on:
+      - redis
+      - celery
+      - api
+    ports:
+      - 5555:5555

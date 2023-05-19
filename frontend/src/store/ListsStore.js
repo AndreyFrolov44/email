@@ -86,6 +86,16 @@ export default class ListsStore {
         }
     }
 
+    async updateList(id, name) {
+        try {
+            const response = await ListsService.update_list(id, name)
+            this.addList(response.data);
+            console.log("Запрос создания контакта");
+        } catch (e) {
+            console.log(e.response?.data?.message);
+        }
+    }
+
     async deleteLists() {
         try {
             const response = await ListsService.delete_lists(this.checkedListsId.join());

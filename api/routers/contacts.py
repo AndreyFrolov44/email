@@ -67,7 +67,6 @@ async def delete_contacts(
     ids = id.split(',')
     id = '(' + id + ')'
     cs = await contacts.get_by_ids(id)
-    # print(cs)
     if len(cs) == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Списки не найдены")
     for c in cs:
@@ -79,14 +78,6 @@ async def delete_contacts(
     ids = '(' + ','.join(ids) + ')'
     await contacts.delete(contact_ids=ids)
 
-
-    # contact = await contacts.get_by_id(id)
-    # if contact is None:
-    #     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Данного контакта не существует")
-    # list = await lists.get_by_id(contact.list_id)
-    # if list.user_id != current_user.id:
-    #     raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="У вас нет доступа к данному списку")
-    # await contacts.delete(contact_id=id)
 
 @router.get('/all', response_model=List[ContactAll])
 async def all_contacts(

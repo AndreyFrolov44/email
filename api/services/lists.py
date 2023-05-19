@@ -23,7 +23,6 @@ class ListService(BaseService):
             ORDER BY date DESC
             LIMIT {limit} OFFSET {skip}
         """)
-        # query = tables.list.select().where(tables.list.c.user_id == user_id).limit(limit).offset(skip)
         return await self.database.fetch_all(query=query)
 
     async def all(self, user_id: int) -> List[lists.ListOut]:
@@ -56,11 +55,6 @@ class ListService(BaseService):
             GROUP   BY lists.id, contacts.list_id
         """)
         return await self.database.fetch_all(query)
-        # query = tables.list.select().where(tables.list.c.id in ids)
-        # l = await self.database.fetch_one(query)
-        # if l is None:
-        #     return None
-        # return lists.Lists.parse_obj(l)
 
     async def create(self, user_id: int, l: lists.ListIn) -> lists.ListOut:
         create_list = lists.Lists(
@@ -84,23 +78,22 @@ class ListService(BaseService):
             id=id,
             name=l.name,
             date=current_list.date,
-            user_id=user.id
+            user_id=user.id,
         )
         values = {**update_list.dict()}
         values.pop("id", None)
+        values.pop("contacts_count", None)
         query = tables.list.update().where(tables.list.c.id == id).values(**values)
         await self.database.execute(query)
-        return update_list
+        return await self.get_by_id(id=id)
 
     async def delete(self, list_id):
         query = f"""DELETE FROM lists WHERE lists.id in {list_id}"""
-        # query = tables.list.delete().where(tables.list.c.id in list_id)
         await self.database.execute(query)
         await self._delete_all_contacts(list_id)
 
     async def _delete_all_contacts(self, list_id):
         query = f"""DELETE FROM contacts WHERE contacts.list_id in {list_id}"""
-        # query = tables.contact.delete().where(tables.contact.c.list_id in list_id)
         await self.database.execute(query)
 
     async def _get_all_contacts(self, list_id: int) -> List[contacts.Contact]:

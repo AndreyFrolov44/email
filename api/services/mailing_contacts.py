@@ -29,7 +29,6 @@ class MailingContactsService(BaseService):
         values.pop("id", None)
         query = mailing_contact.insert().values(**values)
         mailing_contact.id = await self.database.execute(query)
-        # return mailing_contact
 
     async def update_k(self, id, **kwargs):
         query = mailing_contact.update().where(mailing_contact.c.id == id).values(kwargs)

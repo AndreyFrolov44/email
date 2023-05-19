@@ -11,6 +11,3 @@ class MailingContacts(BaseModel):
     transition: bool = False
     unfollow: bool = False
     spam: bool = False
-
-
-

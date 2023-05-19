@@ -22,16 +22,6 @@ user = Table(
     Column("is_superuser", Boolean, nullable=False, default=False)
 )
 
-
-# class User(Base):
-#     __tablename__ = 'users'
-#
-#     id = Column(Integer, primary_key=True)
-#     username = Column(String, unique=True, nullable=False)
-#     email = Column(String, unique=True, nullable=False)
-#     number_letter = Column(Integer)
-#     subscriber = Column(Integer)
-#     password_hash = Column(String)
 list = Table(
     "lists",
     metadata,
@@ -41,15 +31,6 @@ list = Table(
     Column("user_id", Integer, ForeignKey('users.id', ondelete="CASCADE"), index=True, nullable=False)
 )
 
-
-# class List(Base):
-#     __tablename__ = 'lists'
-#
-#     id = Column(Integer, primary_key=True)
-#     name = Column(String, nullable=False)
-#     date = Column(DateTime)
-#     user_id = Column(Integer, ForeignKey('users.id'), index=True, nullable=False)
-#     user = relationship('User', backref='lists')
 contact = Table(
     "contacts",
     metadata,
@@ -61,16 +42,6 @@ contact = Table(
     Column("list_id", Integer, ForeignKey('lists.id', ondelete="CASCADE"), index=True, nullable=False),
 )
 
-# class Contact(Base):
-#     __tablename__ = 'contacts'
-#
-#     id = Column(Integer, primary_key=True)
-#     name = Column(String)
-#     email = Column(String, nullable=False)
-#     phone_number = Column(String(11))
-#     date = Column(DateTime, nullable=False)
-#     list_id = Column(Integer, ForeignKey('lists.id'), index=True, nullable=False)
-#     list = relationship('List', backref='contacts')
 template = Table(
     "templates",
     metadata,
@@ -82,13 +53,6 @@ template = Table(
     Column("rows", String, nullable=False)
 )
 
-# class Template(Base):
-#     __tablename__ = 'templates'
-#
-#     id = Column(Integer, primary_key=True)
-#     name = Column(String, nullable=False)
-#     user_template = Column(Boolean, default=False)
-    # template = File???
 tag = Table(
     "tags",
     metadata,
@@ -96,11 +60,6 @@ tag = Table(
     Column("name", String, unique=True, nullable=False)
 )
 
-# class Tag(Base):
-#     __tablename__ = 'tags'
-#
-#     id = Column(Integer, primary_key=True)
-#     name = Column(String, unique=True, nullable=False)
 template_tag = Table(
     "template_tags",
     metadata,
@@ -109,15 +68,6 @@ template_tag = Table(
     Column("tag_id", Integer, ForeignKey('tags.id'), index=True)
 )
 
-
-# class TemplateTag(Base):
-#     __tablename__ = 'template_tags'
-#
-#     id = Column(Integer, primary_key=True)
-#     template_id = Column(Integer, ForeignKey('templates.id'), index=True)
-#     tag_id = Column(Integer, ForeignKey('tags.id'), index=True)
-#     template = relationship('Template', backref='template_tag')
-#     tag = relationship('Tag', backref='template_tags')
 user_template = Table(
     "user_templates",
     metadata,
@@ -126,14 +76,6 @@ user_template = Table(
     Column("template_id", Integer, ForeignKey('templates.id', ondelete="CASCADE"), index=True, nullable=False)
 )
 
-# class UserTemplate(Base):
-#     __tablename__ = 'user_templates'
-#
-#     id = Column(Integer, primary_key=True)
-#     user_id = Column(Integer, ForeignKey('users.id'), index=True)
-#     template_id = Column(Integer, ForeignKey('templates.id'), index=True)
-#     user = relationship('User', backref="user_templates")
-#     template = relationship('Template', backref="user_templates")
 mailing = Table(
     "mailings",
     metadata,
@@ -165,25 +107,6 @@ mailing_contact = Table(
     Column("unfollow", Boolean, default=False),
     Column("spam", Boolean, default=False)
 )
-
-# class Mailing(Base):
-#     __tablename__ = 'mailings'
-#
-#     id = Column(Integer, primary_key=True)
-#     user_id = Column(Integer, ForeignKey('users.id'), index=True)
-#     template_id = Column(Integer, ForeignKey('templates.id'), index=True)
-#     list_id = Column(Integer, ForeignKey('lists.id'), index=True)
-#     date = Column(DateTime)
-#     sent = Column(Integer)
-#     delivery = Column(Integer)
-#     read = Column(Integer)
-#     transition = Column(Integer)
-#     unfollow = Column(Integer)
-#     spam = Column(Integer)
-#     user = relationship('User', backref="mailings")
-#     template = relationship('Template', backref="mailings")
-#     list = relationship('List', backref="mailings")
-#
 
 user_image = Table(
     "user_images",

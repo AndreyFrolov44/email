@@ -107,12 +107,11 @@ const LogContacts = observer((props) => {
     return (
         <section id="section" className={props.sideBarActive ? 'log-contact menu-active' : 'log-contact menu-closed'}>
             <h1>Контакты</h1>
-            <h2>У вас добавлено {contactsCount} контакта</h2>
+            <h2>У вас добавлено {contactsCount} контактов</h2>
             <Tab>
                 <div name={'contacts'} nameRu={'Контакты'}>
                     <div className="tab-top">
                         <Link to={LOG_CONTACTS_CREATE} className="button">Добавить новые контакты</Link>
-                        <input type="text" className="tab-search" placeholder="Поиск по email" />
                         <button className="button button-dark" disabled={contacts.checkedContacts.length == 0 ? true : false} onClick={() => contacts.deleteContacts()}>Удалить выбранные</button>
                     </div>
                     <table>
@@ -151,7 +150,6 @@ const LogContacts = observer((props) => {
                 <div name={'lists'} nameRu={'Списки'}>
                     <div className="tab-top">
                         <Link to={LOG_LIST_CREATE} className="button">Добавить новый список</Link>
-                        <input type="text" className="tab-search" placeholder="Поиск по названию" />
                         <button className="button button-dark" disabled={lists.checkedListsId.length == 0 ? true : false} onClick={() => lists.deleteLists()}>Удалить выбранные</button>
                     </div>
                     <table>

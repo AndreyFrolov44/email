@@ -1,14 +1,10 @@
 import datetime
-import smtplib
-import uuid
 
 from typing import List
 from sqlalchemy import text
 from fastapi import HTTPException, status, BackgroundTasks
-from email.message import EmailMessage
-from email.utils import formataddr
-from bs4 import BeautifulSoup
 
+from tasks.worker import send_mail
 from .base import BaseService
 from .lists import ListService
 from .templates import TemplateService
@@ -16,8 +12,6 @@ from .mailing_contacts import MailingContactsService
 from db import mailing
 from models.users import User
 from models.mailings import Mailing, MailingCreate, MailingInfo, MailingAll, MailingInfoContacts
-from models.mailing_contacts import MailingContacts
-from core.config import SMTP, EMAIL_ADDRESS, EMAIL_PASSWORD, HOST
 
 
 class MailingService(BaseService):
@@ -42,7 +36,6 @@ class MailingService(BaseService):
             ORDER BY mailings.date DESC
             LIMIT {limit} OFFSET {skip}
         """)
-        # query = mailing.join().select().where(mailing.c.user_id == user.id).limit(limit).offset(skip)
         return await self.database.fetch_all(query)
 
     async def get_by_id(self, mailing_id: int) -> MailingInfo:
@@ -91,64 +84,22 @@ class MailingService(BaseService):
         query = mailing.insert().values(**values)
         mailing_create.id = await self.database.execute(query)
         contacts = await lists.list_info(list.id)
-        background_tasks.add_task(
-            self.send_mail,
+        send_mail.delay(
             src=temp.template,
-            contacts=contacts.contacts,
+            contacts=contacts.dict()['contacts'],
             from_email=mailing_create.email,
             subject=mailing_create.title,
             from_name=mailing_create.organisation,
             mailing_id=mailing_create.id,
-            mailing_contacts=mailing_contacts_service
         )
+
         return mailing_create
 
     async def update_k(self, id, **kwargs):
         query = mailing.update().where(mailing.c.id == id).values(kwargs)
         await self.database.execute(query)
 
-    async def send_mail(self, src, contacts, from_email, subject, from_name, mailing_id, mailing_contacts):
-        with open(src, "r") as file:
-            text = file.read()
 
-        soup = BeautifulSoup(text, "html.parser")
-        img = soup.find('img', {'class': ['pixel_reed']})
 
-        server = smtplib.SMTP(SMTP, 587)
-        server.set_debuglevel(True)
-        server.starttls()
-        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
 
-        sent = 0
-        delivery = len(contacts)
-        for contact in contacts:
-            try:
-                uid = str(uuid.uuid4())
-                img['src'] = f'{HOST}api/mailings/read/{uid}'
-                # print(img)
-                # print(soup)
-                msg = EmailMessage()
-                msg['Subject'] = subject
-                msg['From'] = formataddr((from_name, EMAIL_ADDRESS))
-                msg['Reply-To'] = formataddr((from_name, from_email))
-                msg['To'] = contact.email
-                msg.set_content(f"""\
-                {soup}
-                """, subtype='html')
-                server.send_message(msg)
-
-                mc = MailingContacts(
-                    mailing_id=mailing_id,
-                    contact_id=contact.id,
-                    uuid=uid
-                )
-                await mailing_contacts.create(mc)
-
-                sent += 1
-            except Exception as e:
-                delivery -= 1
-                print(e)
-
-        await self.update_k(mailing_id, sent=sent, delivery=delivery)
-        server.quit()
 

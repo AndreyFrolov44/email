@@ -39,12 +39,10 @@ const LogTemplates = observer((props) => {
     return (
         <section className={props.sideBarActive ? 'template menu-active' : 'template menu-closed'} id="section">
             <h1>Шаблоны</h1>
-            <p>На данной странице будут отбражаться все шаблоны, которые вы сохранили.</p>
             <Tab>
                 <div name={'saved'} nameRu={'Сохраненные'}>
                     <div className="tab-top">
                         <Link to={CREATE_TEMPLATES_ROUTE} className="button">Добавить новый шаблон</Link>
-                        <input type="text" className="tab-search" placeholder="Поиск по названию" />
                     </div>
                     <div className="template-wrap">
                         {saved.map(el =>

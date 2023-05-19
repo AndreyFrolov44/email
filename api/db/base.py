@@ -1,5 +1,6 @@
 from databases import Database
 from sqlalchemy import create_engine, MetaData
+
 from core.config import POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_HOST
 
 

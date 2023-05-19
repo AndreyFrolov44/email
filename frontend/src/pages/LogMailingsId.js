@@ -69,36 +69,13 @@ const LogMailingsId = observer((props) => {
                                 <span className="cart-text">Прочитано</span>
                             </div>
                         </li>
-                        <li className="mailing-details-item">
-                            <div className="mailing-details-img"><img src={transition} alt="Переходы" /></div>
-                            <div className="mailing-details-item-text">
-                                <span className="cart-num">{mailing.transition}/{mailing.read}</span>
-                                <span className="cart-text">Переходы</span>
-                            </div>
-                        </li>
-                        <li className="mailing-details-item">
-                            <div className="mailing-details-img"><img src={unfollow} alt="Отписок" /></div>
-                            <div className="mailing-details-item-text">
-                                <span className="cart-num">{mailing.unfollow}</span>
-                                <span className="cart-text">Отписок</span>
-                            </div>
-                        </li>
-                        <li className="mailing-details-item">
-                            <div className="mailing-details-img"><img src={trash} alt="Добавили в спам" /></div>
-                            <div className="mailing-details-item-text">
-                                <span className="cart-num">{mailing.spam}</span>
-                                <span className="cart-text">Добавили в спам</span>
-                            </div>
-                        </li>
                     </ul>
                 </div>
                 <div name={'address'} nameRu={'Адресаты'}>
-                    <input type="text" className="tab-search" placeholder="Поиск по названию" />
                     <table>
                         <thead>
                             <tr>
                                 <th>
-                                    <input type="checkbox" />
                                     Email
                                 </th>
                                 <th>Телефон</th>

@@ -14,7 +14,7 @@ class Lists(ListBase):
     id: Optional[int] = None
     date: datetime.datetime
     user_id: int
-    contacts_count: Optional[int] # Возможно убрать?
+    contacts_count: Optional[int]
 
 
 class ListInfo(Lists):

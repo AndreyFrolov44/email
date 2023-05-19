@@ -21,7 +21,6 @@ const Header = observer(() => {
         <header className="header">
             <div className="container">
                 <div className="header-line">
-                    <div className="header-logo">Логотип</div>
                     <div className={menuActive ? 'active header-burger' : 'header-burger'} onClick={() => setMenuActive(!menuActive)}><span className="burger"></span></div>
                     <div className={menuActive ? 'active header-menu' : 'header-menu'}>
                         <nav className="header-nav">

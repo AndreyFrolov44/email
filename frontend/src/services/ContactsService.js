@@ -13,10 +13,6 @@ export default class ContactService {
         return $api.get('/contacts', { params: { list_id, limit, skip } });
     }
 
-    // static async create_contacts(name, email, phone_number, list_id) {
-    //     return $api.post('/contacts/', { name, email, phone_number, list_id })
-    // }
-
     static async create_contacts(contactsList) {
         return $api.post('/contacts/', contactsList);
     }

@@ -8,13 +8,17 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const [authError, setError] = useState();
+
     const { user } = useContext(Context);
     let navigate = useNavigate();
 
     const logClick = (e) => {
         e.preventDefault();
-        user.login(email, password).then(() => {
-            navigate(LOG_CONTACTS)
+        user.login(email, password).then((error) => {
+            console.log(error)
+            if (error) setError(error);
+            else navigate(LOG_CONTACTS);
         });
 
     };
@@ -24,6 +28,9 @@ const Login = () => {
         <section className="login">
             <div className="container">
                 <form className="login-form">
+                    {authError &&
+                        <p className="error">{authError}</p>
+                    }
                     <label for="email">Введите почту</label>
                     <input id="email" value={email} type="text" placeholder="Почта" onChange={e => setEmail(e.target.value)} />
                     <label for="password">Введите пароль</label>

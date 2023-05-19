@@ -9,10 +9,6 @@ import { Context } from "../..";
 const ListsTable = observer((props) => {
     const { lists } = useContext(Context);
 
-    // const check = () => {
-    //     lists.setCheckedListsId(props.l.id);
-    // }
-
     return (
         <tr>
             <th>

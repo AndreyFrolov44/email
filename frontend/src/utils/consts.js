@@ -18,6 +18,7 @@ export const MAILINING_CREATE = '/log/mailing/create';
 export const LOG_RATE = '/log/rate/';
 export const LOG_LISTS = '/log/lists/';
 export const LOG_LISTS_ID = '/log/lists/:id';
+export const LOG_LISTS_UPDATE = '/log/lists/:id/update';
 export const LOG_LIST_CREATE = '/log/list/create';
 
 export const API_URL = 'http://localhost:8000/api';

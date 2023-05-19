@@ -27,7 +27,6 @@ class ContactService(BaseService):
             WHERE lists.user_id = {user_id}
             LIMIT {limit} OFFSET {skip}
         """)
-        # query = contact.join(tables.list, contact.c.list_id == tables.list.c.id).select([tables.list.c.name]).where(tables.list.c.user_id == user_id).limit(limit).offset(skip)
         return await self.database.fetch_all(query=query)
 
     async def all_count(self, user_id: int) -> int:
@@ -90,5 +89,4 @@ class ContactService(BaseService):
 
     async def delete(self, contact_ids):
         query = f"""DELETE FROM contacts WHERE contacts.id in {contact_ids}"""
-        # query = tables.contact.delete().where(tables.contact.c.list_id in list_id)
         await self.database.execute(query)
