@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { Context } from "../..";
-import { HOME_ROUTE, TEMPLATES_ROUTE, LOG_CONTACTS, MAILININGS_ROUTE, LOG_RATE, CREATE_TEMPLATES_ROUTE } from "../../utils/consts";
+import { LOGIN_ROUTE, TEMPLATES_ROUTE, LOG_CONTACTS, MAILININGS_ROUTE, CREATE_TEMPLATES_ROUTE } from "../../utils/consts";
 
 const SideBAr = observer((props) => {
     const { user } = useContext(Context)
@@ -13,7 +13,7 @@ const SideBAr = observer((props) => {
     const logout = (e) => {
         e.preventDefault();
         user.logout()
-        navigate(HOME_ROUTE);
+        navigate(LOGIN_ROUTE);
     }
 
     return (

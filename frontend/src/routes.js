@@ -1,12 +1,9 @@
-import { HOME_ROUTE, CONTACTS_ROUTE, RATE_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE, LOG_CONTACTS, TEMPLATES_ROUTE, TEMPLATE_INFO_ROUTE, MAILININGS_ROUTE, MAILININGS_ID_ROUTE, LOG_RATE, LOG_LISTS, LOG_LISTS_ID, LOG_LIST_CREATE, LOG_CONTACTS_CREATE, MAILINING_CREATE, CREATE_TEMPLATES_ROUTE, TEST_TEMPLATE, EDIT_TEMPLATES_ROUTE, LOG_LISTS_UPDATE } from "./utils/consts";
-import Home from "./pages/Home";
+import { LOGIN_ROUTE, REGISTER_ROUTE, LOG_CONTACTS, TEMPLATES_ROUTE, TEMPLATE_INFO_ROUTE, MAILININGS_ROUTE, MAILININGS_ID_ROUTE, LOG_RATE, LOG_LISTS, LOG_LISTS_ID, LOG_LIST_CREATE, LOG_CONTACTS_CREATE, MAILINING_CREATE, CREATE_TEMPLATES_ROUTE, TEST_TEMPLATE, EDIT_TEMPLATES_ROUTE, LOG_LISTS_UPDATE } from "./utils/consts";
 import LogContacts from "./pages/LogContacts";
 import LogTemplates from "./pages/LogTemplates";
 import LogTemplateInfo from "./pages/LogTemplateInfo";
 import LogMailings from "./pages/LogMailings";
 import LogMailingsId from "./pages/LogMailingsId";
-import Contacts from "./pages/Contacts";
-import Rate from "./pages/Rate";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import LogRate from "./pages/LogRate";
@@ -83,18 +80,6 @@ export const authRoutes = [
 ]
 
 export const publicRoutes = [
-    {
-        path: HOME_ROUTE,
-        Component: <Home />
-    },
-    {
-        path: CONTACTS_ROUTE,
-        Component: <Contacts />
-    },
-    {
-        path: RATE_ROUTE,
-        Component: <Rate />
-    },
     {
         path: LOGIN_ROUTE,
         Component: <Login />

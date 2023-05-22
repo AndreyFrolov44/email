@@ -33,9 +33,8 @@ export default class UserStore {
     async registration(username, email, password, password2) {
         try {
             const response = await AuthService.registration(username, email, password, password2);
-            localStorage.setItem('token', response.data.accessToken);
-            localStorage.setItem('refreshToken', response.data.refresh_token);
-            this.setAuth(true);
+
+            this.setAuth(false);
         } catch (e) {
             return e.response?.data?.detail;
         }
@@ -45,8 +44,6 @@ export default class UserStore {
         try {
             localStorage.removeItem('token');
             localStorage.removeItem('refreshToken');
-
-
 
             this.setAuth(false);
         } catch (e) {

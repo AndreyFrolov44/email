@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router";
 
+import { LOGIN_ROUTE } from "../utils/consts";
 import { Context } from "..";
 
 const Register = () => {
@@ -11,6 +13,8 @@ const Register = () => {
 
     const { user } = useContext(Context);
 
+    let navigate = useNavigate();
+
     const regClick = (e) => {
         e.preventDefault();
         user.registration(username, email, password, password2)
@@ -18,6 +22,9 @@ const Register = () => {
                 console.log(error)
                 if (error) {
                     setError(authError);
+                }
+                else {
+                    navigate(LOGIN_ROUTE)
                 }
             })
     };

@@ -6,8 +6,7 @@ import { Context } from "..";
 import ContactsTable from '../components/table/ContactsTable';
 import ListsTable from '../components/table/ListsTable';
 import Tab from '../components/tab/Tab'
-import { LOG_CONTACTS, LOG_CONTACTS_CREATE, LOG_LIST_CREATE } from "../utils/consts";
-import Contacts from "./Contacts";
+import { LOG_CONTACTS_CREATE, LOG_LIST_CREATE } from "../utils/consts";
 
 const LogContacts = observer((props) => {
     const [contactsCount, setContactsCount] = useState(0);

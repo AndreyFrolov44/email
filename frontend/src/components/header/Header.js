@@ -1,11 +1,10 @@
-import { observer } from 'mobx-react-lite';
 import React, { useContext, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import { Context } from '../..';
-import { HOME_ROUTE, CONTACTS_ROUTE, RATE_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE } from '../../utils/consts';
+import { LOGIN_ROUTE, REGISTER_ROUTE } from '../../utils/consts';
 
-const Header = observer(() => {
+const Header = () => {
     const [menuActive, setMenuActive] = useState(false)
     const { user } = useContext(Context)
 
@@ -14,7 +13,7 @@ const Header = observer(() => {
     const logout = (e) => {
         e.preventDefault();
         user.logout()
-        navigate(HOME_ROUTE);
+        navigate(LOGIN_ROUTE);
     }
 
     return (
@@ -23,14 +22,6 @@ const Header = observer(() => {
                 <div className="header-line">
                     <div className={menuActive ? 'active header-burger' : 'header-burger'} onClick={() => setMenuActive(!menuActive)}><span className="burger"></span></div>
                     <div className={menuActive ? 'active header-menu' : 'header-menu'}>
-                        <nav className="header-nav">
-                            <ul>
-                                <li><NavLink to={HOME_ROUTE}>Главная</NavLink></li>
-                                <li><NavLink to={RATE_ROUTE}>Тарифы</NavLink></li>
-                                <li><a href="#">Меню</a></li>
-                                <li><NavLink to={CONTACTS_ROUTE}>Контакты</NavLink></li>
-                            </ul>
-                        </nav>
                         <div className="buttons">
                             {!user.isAuth ? (
                                 <>
@@ -49,6 +40,6 @@ const Header = observer(() => {
             </div>
         </header>
     )
-})
+}
 
 export default Header

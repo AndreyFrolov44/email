@@ -13,14 +13,10 @@ const LogListsId = observer((props) => {
     const [list, setList] = useState({});
     const [listContacts, setListContacts] = useState([]);
 
-    const [name, setName] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [email, setEmail] = useState("");
-
     const [contactsCheckAll, setContactsCheckAll] = useState(false);
     const [contactsCheck, setContactsCheck] = useState([]);
 
-    const { lists, contacts } = useContext(Context);
+    const { lists } = useContext(Context);
 
     const date = new Date();
 
