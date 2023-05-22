@@ -31,6 +31,8 @@ services:
     ports:
       - "80:80"
     container_name: email-client
+    volumes:
+      - ./frontend:/client
     depends_on:
       - api
 
