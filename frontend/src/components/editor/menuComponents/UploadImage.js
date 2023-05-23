@@ -86,14 +86,9 @@ const UploadImage = observer((props) => {
 
     useEffect(() => {
         if (props.value === url || props.id === id) return;
-        console.log(props.value, props.id)
         setUrl(props.value);
         setId(props.id);
     }, [props.value, props.id])
-
-    // useEffect(() => {
-
-    // }, [props.value])
 
     return (
         <div className="editor-menu-collapse-item">

@@ -73,8 +73,6 @@ const EmailRow = observer((props) => {
         e.stopPropagation();
         const rows = [...props.rows];
         if (rows.length == 1 && rows[0].content != []) {
-            // rows[0].content = [{ elements: [], style: { width: '100%' } }], style: {}, id: 1, imageSrc: '', imageId: null }];
-            // rows[0].style = { width: '100%' };
             rows[0] = { content: [{ elements: [], style: { width: '100%' } }], style: {}, id: 1, imageSrc: '', imageId: null }
         }
         else rows.splice(props.rows.indexOf(props.row), 1);
@@ -92,7 +90,6 @@ const EmailRow = observer((props) => {
 
     const moveStart = () => {
         if (props.newElements) return;
-        console.log(props.newElements)
         const indexRow = props.rows.indexOf(props.row);
         props.setMoveRow({ row: { ...props.row }, indexRow: indexRow });
     }
@@ -112,15 +109,8 @@ const EmailRow = observer((props) => {
         }
     }, [counter])
 
-    useEffect(() => {
-        // console.log(props.moveRow)
-    }, [props.moveRow])
-    useEffect(() => {
-        console.log(dropPosition, props.moveElement)
-    }, [dropPosition])
-
     return (
-        <tr className={`editor-main-row row row-container ${(hover || props.focusRow.id === props.row.id) || props.focusElement.id !== undefined || (props.focusElement.indexRow && props.focusElement.indexRow !== props.rows.indexOf(props.row)) ? 'hover' : ''} ${props.focusElement.indexRow === props.rows.indexOf(props.row) ? 'focus-element' : ''} ${props.id === dropPosition || props.id + 1 === dropPosition ? 'move-row' : ''}`} onDragEnter={(e) => dragEnter(e)} onDragLeaveCapture={(e) => dragLeave(e)} onDrop={drop} onDragExit={() => console.log("end")} onDragStart={dragStart} onDragOver={dragStart} onClick={focus} ref={rowRef} style={{ ...props.row.style, width: '100%' }} >
+        <tr className={`editor-main-row row row-container ${(hover || props.focusRow.id === props.row.id) || props.focusElement.id !== undefined || (props.focusElement.indexRow && props.focusElement.indexRow !== props.rows.indexOf(props.row)) ? 'hover' : ''} ${props.focusElement.indexRow === props.rows.indexOf(props.row) ? 'focus-element' : ''} ${props.id === dropPosition || props.id + 1 === dropPosition ? 'move-row' : ''}`} onDragEnter={(e) => dragEnter(e)} onDragLeaveCapture={(e) => dragLeave(e)} onDrop={drop} onDragStart={dragStart} onDragOver={dragStart} onClick={focus} ref={rowRef} style={{ ...props.row.style, width: '100%' }} >
             <table cellpadding="0" cellspacing="0" className={`row-container ${props.blankClass ? 'blank' : ''} ${props.row.content.length > 0 ? 'row-columns' : ''}`} style={{ height: props.row.content.find(column => column.elements.length > 0) ? 'auto' : '' }} >
                 <button className="editor-button editor-button-prev" onClick={addBlockPrev}>+</button>
                 {props.row.content.length === 0 ?

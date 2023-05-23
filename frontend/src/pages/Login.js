@@ -16,7 +16,6 @@ const Login = () => {
     const logClick = (e) => {
         e.preventDefault();
         user.login(email, password).then((error) => {
-            console.log(error)
             if (error) setError(error);
             else navigate(LOG_CONTACTS);
         });

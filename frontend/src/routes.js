@@ -14,7 +14,6 @@ import LogContactsCreate from "./pages/LogContactsCreate";
 import LogMailingCreate from "./pages/LogMailingCreate";
 import LogCreateTemplate from "./pages/LogCreateTemplate";
 import LogEditTemplate from "./pages/LogEditTemplate";
-import newTemplate from "./pages/newTemplate";
 
 export const authRoutes = [
     {
@@ -40,10 +39,6 @@ export const authRoutes = [
     {
         path: EDIT_TEMPLATES_ROUTE,
         Component: LogEditTemplate
-    },
-    {
-        path: TEST_TEMPLATE,
-        Component: newTemplate
     },
     {
         path: MAILININGS_ROUTE,

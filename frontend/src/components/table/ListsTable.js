@@ -4,11 +4,8 @@ import { Link } from "react-router-dom";
 import dateFormat from "dateformat";
 
 import { LOG_LISTS } from "../../utils/consts";
-import { Context } from "../..";
 
 const ListsTable = observer((props) => {
-    const { lists } = useContext(Context);
-
     return (
         <tr>
             <th>

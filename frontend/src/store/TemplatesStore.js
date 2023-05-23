@@ -43,7 +43,6 @@ export default class TemplatesStore {
         try {
             const response = await TemplatesService.get_save(limit, skip);
             this.setSaved(response.data);
-            console.log("Запрос сохраненных шаблонов")
         } catch (e) {
             console.log(e.response?.data?.message);
         }
@@ -53,7 +52,6 @@ export default class TemplatesStore {
         try {
             const response = await TemplatesService.get_library(limit, skip);
             this.setLibrary(response.data);
-            console.log("Запрос шаблонов из библиотеки")
         } catch (e) {
             console.log(e.response?.data?.message);
         }
@@ -64,7 +62,6 @@ export default class TemplatesStore {
             const response = await TemplatesService.save_image(file);
             this.setImageUrl(response.data.img);
             this.setImageId(response.data.id);
-            console.log("Запрос добавления изображения")
         } catch (e) {
             console.log(e.response?.data?.message);
         }
@@ -75,7 +72,6 @@ export default class TemplatesStore {
             const response = await TemplatesService.delete_image(id);
             this.setImageUrl('');
             this.setImageId(null);
-            console.log("Запрос удаления изображения")
         } catch (e) {
             console.log(e.response?.data?.message);
         }
@@ -85,7 +81,6 @@ export default class TemplatesStore {
         try {
             const response = await TemplatesService.create_temaplate(formData);
             this.addSaved(response.data)
-            console.log("create template");
         } catch (e) {
             console.log(e.response);
         }
@@ -95,7 +90,6 @@ export default class TemplatesStore {
         try {
             const response = await TemplatesService.update_temaplate(id, formData);
             this.updateSaved(response.data)
-            console.log("update template");
         } catch (e) {
             console.log(e.response);
         }
@@ -105,7 +99,6 @@ export default class TemplatesStore {
         try {
             const response = await TemplatesService.delete_template(id);
             this.deleteSaved(id)
-            console.log("delete template");
         } catch (e) {
             console.log(e?.response);
         }
@@ -114,7 +107,6 @@ export default class TemplatesStore {
     async templateInfo(id) {
         try {
             const response = await TemplatesService.get_template_info(id);
-            console.log("template info id=" + id);
             return response.data;
         } catch (e) {
             console.log(e?.response);

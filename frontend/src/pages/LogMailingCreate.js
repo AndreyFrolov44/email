@@ -56,10 +56,6 @@ const LogMailingCreate = observer((props) => {
             });
     }, [null])
 
-    useEffect(() => {
-        console.log(selectedTemplate)
-    }, [selectedTemplate])
-
     return (
         <section className={props.sideBarActive ? 'mailing-create menu-active' : 'mailing-create menu-closed'} id="section">
             <h1>Создание рассылки</h1>

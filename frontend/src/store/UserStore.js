@@ -55,7 +55,6 @@ export default class UserStore {
         this.setLoading(true);
         try {
             const response = await axios.get(`${API_URL}/refresh`, { withCredentials: true })
-            console.log("Обновление access токена");
             localStorage.setItem('token', response.data.accessToken);
             localStorage.setItem('refreshToken', response.data.refresh_token);
             this.setAuth(true);

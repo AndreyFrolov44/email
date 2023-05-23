@@ -42,7 +42,6 @@ const LogListsId = observer((props) => {
             setContactsCheck(contactsCheck.filter(item => item !== parseInt(id)));
         }
         lists.setCheckedContacts(parseInt(id));
-        console.log(lists.checkedContacts);
     };
 
     useEffect(() => {

@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import ProgressBar from "./ProgressBar";
-
-
 const WidthAuto = (props) => {
     const [widthDetail, setWidthDetail] = useState(props.value === 'auto' ? false : true);
     const [width, setWidth] = useState(props.value ? 100 : parseInt(props.value));

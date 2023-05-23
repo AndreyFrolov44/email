@@ -27,7 +27,6 @@ const Columns = (props) => {
 
     const drop = (e) => {
         if (props.newColumns.length !== 0) return;
-        // e.stopPropagation();
         props.setHover(false);
 
         const indexRow = props.rows.indexOf(props.row);
@@ -53,10 +52,7 @@ const Columns = (props) => {
                         textAlign: 'center',
                         cursor: 'pointer',
                         lineHeight: '100%',
-                        // borderWidth: '0px',
-                        // borderStyle: 'solid',
                         fontSize: '15px',
-                        // borderColor: 'rgb(255, 255, 255)',
                     },
                     id: props.maxIdElement,
                     columnElementStyle: {
@@ -110,10 +106,6 @@ const Columns = (props) => {
                         padding: '10px 20px 10px 20px',
                         fontSize: '15px',
                         textAlign: 'center'
-                        // display: 'flex',
-                        // justifyContent: 'center',
-                        // flexDirection: 'row',
-                        // flexWrap: 'wrap'
                     },
                     itemStyle: {
                         display: 'inline-block'
@@ -156,7 +148,6 @@ const Columns = (props) => {
                     text: 'Заголовок',
                     type: "h1",
                     style: {
-                        // display: "inline-block",
                         fontWeight: "bold",
                         fontSize: "22px",
                         lineHeight: "140%",
@@ -217,8 +208,6 @@ const Columns = (props) => {
     }
 
     const dragStart = (e, element) => {
-        // e.preventDefault();
-        // e.stopPropagation();
         const indexRow = props.rows.indexOf(props.row);
         const indexColumn = props.rows[indexRow].content.indexOf(props.content);
         const indexElement = props.rows[indexRow].content[indexColumn].elements.indexOf(element)
@@ -227,8 +216,6 @@ const Columns = (props) => {
 
     const dragLeave = (e) => {
         e.preventDefault()
-        // e.stopPropagation()
-        console.log("leave")
         setDropPosition(null);
     }
 
@@ -263,10 +250,6 @@ const Columns = (props) => {
         props.setMoveElement({ element: { ...el }, indexRow: indexRow, indexColumn: indexColumn, indexElement: props.rows[indexRow].content[indexColumn].elements.indexOf(el) });
     }
 
-    useEffect(() => {
-        console.log(dropPosition)
-    }, [dropPosition])
-
     return (
         <td className="row-column" width={props.content.style.width} style={{ ...props.content.style, display: 'inline-block', width: null, verticalAlign: 'top' }} ref={elementsRef} onDrop={drop} onDragLeave={dragLeave} >
             {props.content.elements.length !== 0
@@ -290,7 +273,6 @@ const Columns = (props) => {
                         {!props.focusRow || (props.focusRow && props.focusRow.id !== props.row.id) &&
                             <div className="button-move" draggable={true} onDragStart={(e) => moveStart(e, el)}><MoveSvg /></div>
                         }
-                        {/* <div className="button-move" draggable={true} onDragStart={(e) => console.log(props.rows)}><MoveSvg /></div> */}
                     </div>
                 )
                 :

@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import ProgressBar from "./ProgressBar";
-
-
 const Width = (props) => {
     const [width, setWidth] = useState(props.value);
 

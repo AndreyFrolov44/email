@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Collapsible from 'react-collapsible';
 import FontSize from "../menuComponents/FontSize";
 import Color from "../menuComponents/Color";
-import TextAlignFlex from "../menuComponents/TextAlignFlex";
 import FlexDirection from "../menuComponents/FlexDirection";
 import Padding from "../menuComponents/Padding";
 import Margin from "../menuComponents/Margin";
@@ -20,8 +19,6 @@ const EditorEmailMenuMenu = (props) => {
         } : { r: 0, g: 0, b: 0 },
         textAlign: props.focusElement.element.listStyle.textAlign || 'center',
         itemDisplay: props.focusElement.element.itemStyle.display || 'inlineBlock',
-        // justifyContent: props.focusElement.element.listStyle.justifyContent || props.focusElement.element.listStyle.alignItems || 'center',
-        // flexDirection: props.focusElement.element.listStyle.flexDirection || 'row',
         padding: props.focusElement.element.style.padding ? {
             top: parseInt(props.focusElement.element.style.padding.split(" ")[0]),
             right: parseInt(props.focusElement.element.style.padding.split(" ")[1]),
@@ -106,8 +103,6 @@ const EditorEmailMenuMenu = (props) => {
             } : { r: 0, g: 0, b: 0 },
             textAlign: props.focusElement.element.listStyle.textAlign || 'center',
             itemDisplay: props.focusElement.element.itemStyle.display || 'inlineBlock',
-            // justifyContent: props.focusElement.element.listStyle.justifyContent || props.focusElement.element.listStyle.alignItems || 'center',
-            // flexDirection: props.focusElement.element.listStyle.flexDirection || 'row',
             padding: props.focusElement.element.style.padding ? {
                 top: parseInt(props.focusElement.element.style.padding.split(" ")[0]),
                 right: parseInt(props.focusElement.element.style.padding.split(" ")[1]),
@@ -220,7 +215,6 @@ const EditorEmailMenuMenu = (props) => {
             <Collapsible trigger="Стили" triggerTagName="h5" triggerClassName="editor-menu-collapse-title close" triggerOpenedClassName="editor-menu-collapse-title" contentOuterClassName="editor-menu-collapse-block" transitionTime={100} open={true}>
                 <FontSize value={menu.fontSize} onChange={(value) => setMenu({ ...menu, fontSize: value })} />
                 <Color value={menu.color} onChange={(value) => setMenu({ ...menu, color: { ...value } })} />
-                {/* <TextAlignFlex value={menu.justifyContent} onChange={(value) => setMenu({ ...menu, justifyContent: value })} /> */}
                 <TextAlign value={menu.textAlign} onChange={(value) => setMenu({ ...menu, textAlign: value })} />
                 <FlexDirection value={menu.flexDirection} onChange={(value) => setMenu({ ...menu, itemDisplay: value })} />
                 <Padding value={menu.padding} onChange={(value) => setMenu({ ...menu, padding: { ...value } })} />

@@ -19,7 +19,6 @@ const Register = () => {
         e.preventDefault();
         user.registration(username, email, password, password2)
             .then(error => {
-                console.log(error)
                 if (error) {
                     setError(authError);
                 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import EditorEmailMenuItem from "./EditorEmailMenuItem";
 
 
@@ -16,7 +16,6 @@ import EditorEmailMenuColumns from "./EditorEmailMenuColumns";
 import EditorEmailMenuButton from "./EditorEmailMenuButton";
 import EditorEmailMenuMenu from "./EditorEmailMenuMenu";
 import EditorEmailMenuText from "./EditorEmailMenuText";
-import Menu from './Menu';
 import EditorEmailMenuDelimiter from "./EditorEmailMenuDelimiter";
 import EditorEmailMenuHeader from "./EditorEmailMenuHeader";
 import EditorEmailMenuImage from "./EditorEmailMenuImage";
@@ -57,7 +56,6 @@ const EditorEmailMenu = (props) => {
             </div>
             <div className={`editor-menu-tab ${props.focusRow.id || props.focusElement.element ? 'active focus' : ''}`}>
                 {menu()}
-                {/* <Menu focusRow={props.focusRow} focusElement={props.focusElement} rows={props.rows} setRows={props.setRows} setNewColumns={props.setNewColumns} setFocusRow={props.setFocusRow} /> */}
             </div>
         </div >
     )

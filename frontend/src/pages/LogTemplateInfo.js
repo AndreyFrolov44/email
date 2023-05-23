@@ -31,7 +31,6 @@ const LogTemplateInfo = (props) => {
             <h1>{template.name}</h1>
             <Link to={MAILINING_CREATE + '?template=' + template.id}>Создать рассылку с этим шаблоном</Link>
             <div className="buttons">
-                {/* <button className="button">Изменить</button> */}
                 <Link to={CREATE_TEMPLATES_ROUTE + template.id} className="button">Изменить</Link>
                 <button className="button button-dark" onClick={(e) => setPopupActive(true)}>Удалить</button>
             </div>

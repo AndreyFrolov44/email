@@ -121,7 +121,6 @@ const EditorEmailMenuTabItem = (props) => {
             bottom: props.focusRow.content[props.columnIndex].style.padding ? parseInt(props.focusRow.content[props.columnIndex].style.padding.split(" ")[2]) : 0,
             left: props.focusRow.content[props.columnIndex].style.padding ? parseInt(props.focusRow.content[props.columnIndex].style.padding.split(" ")[3]) : 0
         })
-        console.log(props.focusRow.content[props.columnIndex], props.columnIndex)
     }, [props.focusRow])
 
     return (
@@ -144,11 +143,6 @@ const EditorEmailMenuTabItem = (props) => {
                     }
                 </div>
             </div>
-            {/* <div className="editor-menu-collapse-item">
-                <div className="editor-menu-collapse-line">
-                    <span>Поля TODO</span>
-                </div>
-            </div> */}
             <Padding value={padding} onChange={(value) => setPadding(value)} />
 
             <Border value={border} onChange={(value) => setBorder({ ...value })} />

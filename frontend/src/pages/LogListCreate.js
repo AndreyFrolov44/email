@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router";
 
 import { Context } from "..";
-import { LOG_CONTACTS, LOG_LIST_CREATE } from "../utils/consts";
+import { LOG_CONTACTS } from "../utils/consts";
 
 const LogListCreate = observer((props) => {
     const [listName, setListName] = useState('');

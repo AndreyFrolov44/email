@@ -100,7 +100,6 @@ const EditorEmailMenuDelimiter = (props) => {
         <>
             <Collapsible trigger="Линия" triggerTagName="h5" triggerClassName="editor-menu-collapse-title close" triggerOpenedClassName="editor-menu-collapse-title" contentOuterClassName="editor-menu-collapse-block" transitionTime={100} open={true}>
                 <Width value={delimiter.width} onChange={(value) => setDelimiter({ ...delimiter, width: value })} focusElement={props.focusElement} />
-                {/* <Color value={delimiter.color} onChange={(value) => setDelimiter({ ...delimiter, color: { ...value } })} /> */}
                 <Line value={delimiter.border} onChange={(value) => setDelimiter({ ...delimiter, border: { ...value } })} />
                 <TextAlign value={delimiter.textAlign} onChange={(value) => setDelimiter({ ...delimiter, textAlign: value })} />
             </Collapsible>

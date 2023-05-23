@@ -6,7 +6,6 @@ import Padding from "../menuComponents/Padding";
 import TextAlign from "../menuComponents/TextAlign";
 import UploadImage from "../menuComponents/UploadImage";
 import Width from "../menuComponents/Width";
-import WidthAuto from "../menuComponents/WidthAuto";
 
 
 const EditorEmailMenuImage = (props) => {

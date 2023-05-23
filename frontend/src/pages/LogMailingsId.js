@@ -8,39 +8,21 @@ import Tab from "../components/tab/Tab";
 import sent from '../assets/img/send.svg';
 import delivery from '../assets/img/mail.svg';
 import read from '../assets/img/read.svg';
-import transition from '../assets/img/cursor.svg';
-import unfollow from '../assets/img/people.svg';
-import trash from '../assets/img/trash.svg';
 import ContactsMailingTable from "../components/table/ContactsMailingTable";
 
 const LogMailingsId = observer((props) => {
     const params = useParams();
-    const [tabActive, setTabActive] = useState('statistics');
 
     const [mailing, setMailing] = useState({});
-    const [contactsList, setContactsList] = useState([]);
 
-    const [limit, setLimit] = useState(100);
-    const [skip, setSkip] = useState(0);
-
-    const { mailings, contacts } = useContext(Context)
+    const { mailings } = useContext(Context)
 
     useEffect(() => {
         mailings.InfoMailings(params.id)
             .then(() => {
                 setMailing(mailings.mailingsInfo)
-                console.log(mailings.mailingsInfo)
             })
     }, [null])
-
-    useEffect(() => {
-        console.log(mailing)
-        // if (mailing.list_id)
-        //     contacts.allContactsInList(mailing.list_id, limit, skip)
-        //         .then(() => {
-        //             setContactsList(contacts.contacts)
-        //         })
-    }, [mailing])
 
     return (
         <section className={props.sideBarActive ? 'mailing-details menu-active' : 'mailing-details menu-closed'} id="section">

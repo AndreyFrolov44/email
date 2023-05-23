@@ -34,7 +34,6 @@ export default class ContactsStore {
         try {
             const response = await ContactsService.get_count_contacts()
             this.setContactsCount(response.data.count);
-            console.log("Запрос количества контактов")
         } catch (e) {
             console.log(e.response?.data?.message);
         }
@@ -44,7 +43,6 @@ export default class ContactsStore {
         try {
             const response = await ContactsService.get_all_contacts(limit, skip)
             this.setContacts(response.data);
-            console.log("Запрос контактов")
         } catch (e) {
             console.log(e.response?.data?.message);
         }
@@ -54,7 +52,6 @@ export default class ContactsStore {
         try {
             const response = await ContactsService.get_all_contacts_in_list(listId, limit, skip)
             this.setContacts(response.data);
-            console.log("Запрос контактов в списке id=" + listId)
         } catch (e) {
             console.log(e.response?.data?.message);
         }
@@ -69,7 +66,6 @@ export default class ContactsStore {
             })
             this.setContacts(newContacts);
             this.resetChecked();
-            console.log("Запрос удаления контактов");
         } catch (e) {
             console.log(e.response?.data?.message);
         }

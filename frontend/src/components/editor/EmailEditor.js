@@ -158,10 +158,6 @@ const EmailEditor = observer((props) => {
         }
     }, [props.name])
 
-    useEffect(() => {
-        console.log(row)
-    }, [row])
-
     return (
         <>
             <div className="editor-header">

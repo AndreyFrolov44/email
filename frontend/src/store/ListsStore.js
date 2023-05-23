@@ -60,7 +60,6 @@ export default class ListsStore {
         try {
             const response = await ListsService.get_all_lists(limit, skip);
             this.setLists(response.data);
-            console.log("Запрос списков")
         } catch (e) {
             console.log(e.response?.data?.message);
         }
@@ -70,7 +69,6 @@ export default class ListsStore {
         try {
             const response = await ListsService.get_list_info(id);
             this.setList(response.data);
-            console.log("Запрос списка id=" + id);
         } catch (e) {
             console.log(e.response?.data?.message);
         }
@@ -80,7 +78,6 @@ export default class ListsStore {
         try {
             const response = await ListsService.create_list(name)
             this.addList(response.data);
-            console.log("Запрос создания контакта");
         } catch (e) {
             console.log(e.response?.data?.message);
         }
@@ -90,7 +87,6 @@ export default class ListsStore {
         try {
             const response = await ListsService.update_list(id, name)
             this.addList(response.data);
-            console.log("Запрос создания контакта");
         } catch (e) {
             console.log(e.response?.data?.message);
         }
@@ -105,27 +101,15 @@ export default class ListsStore {
             })
             this.setLists(newLists);
             this.resetChecked();
-            console.log("Запрос удаления списка");
         } catch (e) {
             console.log(e.response?.data?.message);
         }
     }
 
-    // async createContacts(name, email, phone_number, list_id) {
-    //     try {
-    //         const response = await ContactsService.create_contacts(name, email, phone_number, list_id)
-    //         this.addContact(response.data);
-    //         console.log("Запрос создания контактов");
-    //     } catch (e) {
-    //         console.log(e.response?.data?.detail);
-    //     }
-    // }
-
     async createContacts(contactsList) {
         try {
             const response = await ContactsService.create_contacts(contactsList)
             this.addContact(response.data);
-            console.log("Запрос создания контактов");
         } catch (e) {
             return e.response?.data?.detail;
         }
@@ -140,7 +124,6 @@ export default class ListsStore {
             })
             this.setNewContacts(newContacts);
             this.resetCheckedContacts();
-            console.log("Запрос удаления контактов");
         } catch (e) {
             console.log(e.response?.data?.message);
         }

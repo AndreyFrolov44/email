@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { observer } from "mobx-react-lite";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { Context } from "..";
 import Templates from "../components/templates/Templates";
 import Tab from "../components/tab/Tab";
 import { CREATE_TEMPLATES_ROUTE, MAILINING_CREATE } from "../utils/consts";
-import Popup from "../components/popup/Popup";
 
 const LogTemplates = observer((props) => {
     const [saved, setSaved] = useState([]);

@@ -21,10 +21,6 @@ const LogEditTemplate = observer((props) => {
         })
     }, [null])
 
-    useEffect(() => {
-        // console.log(rows)
-    }, [rows])
-
     return (
         <section className="log-template-create" id="section">
             <EmailEditor rows={rows} name={name} id={params.id} />

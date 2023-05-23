@@ -8,7 +8,6 @@ const EditorEmailMenuItemLong = (props) => {
 
     return (
         <div className="editor-menu-item-long" onClick={click}>
-            {/* <props.svg /> */}
             <img src={props.svg} />
         </div>
     )

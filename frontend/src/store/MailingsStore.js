@@ -25,7 +25,6 @@ export default class ListsStore {
         try {
             const response = await MailingsService.get_all_mailings(limit, skip);
             this.setMailings(response.data);
-            console.log("Запрос рассылок")
         } catch (e) {
             console.log(e.response?.data?.message);
         }
@@ -35,7 +34,6 @@ export default class ListsStore {
         try {
             const response = await MailingsService.get_info_mailings(id);
             this.setMailingsInfo(response.data);
-            console.log("Запрос рассылки id=" + id)
         } catch (e) {
             console.log(e.response?.data?.message);
         }
@@ -45,7 +43,6 @@ export default class ListsStore {
         try {
             const response = await MailingsService.create_mailing(title, email, organisation, list_id, template_id);
             this.addMailings(response.data);
-            console.log("Запрос создания рассылки");
         } catch (e) {
             console.log(e.response?.data?.message);
         }

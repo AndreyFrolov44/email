@@ -11,7 +11,6 @@ export default class TemplateService {
     }
 
     static async save_image(img) {
-        console.log(img)
         return $api.post('/user_img/', img, {
             headers: {
                 'Content-Type': 'multipart/form-data'
