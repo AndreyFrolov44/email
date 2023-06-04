@@ -64,7 +64,7 @@ class TemplateService(BaseService):
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
                                 detail="Не верный тип изображения")
         new_html = await self._remove_tags(html)
-        await self._save_html(html=new_html, file_name=file_name, img=img_name)
+        await self._save_html(html=new_html, file_name=file_name)
         create_template = TemplateCreate(
             name=name,
             user_template=True,
@@ -158,7 +158,7 @@ class TemplateService(BaseService):
             data = await file.read()
             await buffer.write(data)
 
-    async def _save_html(self, html: str, file_name: str, img: str):
+    async def _save_html(self, html: str, file_name: str):
         start_html = """
             <!DOCTYPE html>
             <html lang="en">
@@ -206,7 +206,7 @@ class TemplateService(BaseService):
             <body>
         """
         end_html = f"""
-                    <img class="pixel_reed" src="{HOST + img}" />
+                    <img class="pixel_reed" src="{HOST + f'read/'}" />
                 </body>
             </html>
         """
